@@ -58,6 +58,9 @@ public class Activity_Home extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
+                if (item.getItemId() == R.id.item_qltv){
+                    fragment = new Fragment_QL_ThanhVien();
+                }
 //                if (item.getItemId() == R.id.item_qlpm) {
 //                    fragment = new Frag_QL_Phieu_Muon();
 //                } else if (item.getItemId() == R.id.item_qlls) {

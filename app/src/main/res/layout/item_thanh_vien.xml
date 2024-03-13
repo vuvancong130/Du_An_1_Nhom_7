@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/txt_maTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mã thành viên: anv01"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/txt_tenTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên thành viên: Nguyễn Văn A"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_namSinh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Năm sinh: 2004"
+            android:textSize="16dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txt_gioiTinh"
+                android:layout_width="180px"
+                android:layout_height="wrap_content"
+                android:text="Giới tính:"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_sodienthoai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại: "
+            android:textSize="16dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:padding="5dp">
+
+        <ImageButton
+            android:id="@+id/imgbnt_deleteTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_delete" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
