@@ -51,7 +51,7 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.TVie
         holder.txt_tenTV.setText("Tên thành viên: " + thanhVienDTO.getHo_ten());
         holder.txt_namSinh.setText("Năm sinh: " + thanhVienDTO.getNam_sinh());
         holder.txt_gioiTinh.setText("Giới tính: " + thanhVienDTO.getGioi_tinh());
-        holder.txt_sodienThoai.setText("Lương: " + thanhVienDTO.getSo_dien_thoai());
+        holder.txt_sodienThoai.setText("Số điện thoại: " + thanhVienDTO.getSo_dien_thoai());
 
         holder.imgbnt_deleteTV.setOnClickListener(new View.OnClickListener() {
             @Override

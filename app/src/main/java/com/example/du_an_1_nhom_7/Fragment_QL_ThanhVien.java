@@ -86,7 +86,7 @@ public class Fragment_QL_ThanhVien extends Fragment {
             public void onClick(View v) {
                 thanhVienDTO = new ThanhVienDTO();
                 thanhVienDTO.setHo_ten(tiedt_add_tenTV.getText().toString());
-                thanhVienDTO.setNam_sinh(tiedt_add_namSinh.getText().toString());
+                thanhVienDTO.setSo_dien_thoai(tiedt_add_sodienthoai.getText().toString());
                 thanhVienDTO.setGioi_tinh(tiedt_add_gioiTinh.getText().toString());
                 thanhVienDTO.setNam_sinh(tiedt_add_namSinh.getText().toString());
 
@@ -127,21 +127,23 @@ public class Fragment_QL_ThanhVien extends Fragment {
         if (ten.isEmpty()) {
             tiedt_add_tenTV.setError("Vui lòng nhập tên thành viên!");
             check = -1;
+        } else if (namSinh.isEmpty()) {
+            tiedt_add_namSinh.setError("Vui lòng nhập năm sinh!");
+            check = -1;
         } else if (gioiTinh.isEmpty()) {
             tiedt_add_gioiTinh.setError("Vui lòng nhập giới tính!");
             check = -1;
         } else if (sodienThoai.isEmpty()) {
             tiedt_add_sodienthoai.setError("Vui lòng nhập số điện thoại!");
             check = -1;
-        }
-        try {
-            if (namSinh.isEmpty()) {
-                tiedt_add_namSinh.setError("Vui lòng nhập năm sinh!");
+        } else {
+            try {
+                // Kiểm tra năm sinh có đúng định dạng số không
+                Integer.parseInt(namSinh);
+            } catch (NumberFormatException e) {
+                tiedt_add_namSinh.setError("Sai định dạng, phải nhập số!");
                 check = -1;
             }
-        } catch (Exception e) {
-            tiedt_add_namSinh.setError("Sai định dạng, phải nhập số!");
-            check = -1;
         }
 
         return check;
