@@ -17,7 +17,8 @@
             <item
                 android:id="@+id/item_qltv"
                 android:icon="@drawable/icon_qlthanhvien"
-                android:title="Quản lý Thành Viên" />
+                android:title="Quản lý Khách Hàng" />
+
         </menu>
     </item>
 
@@ -27,20 +28,23 @@
             <item
                 android:id="@+id/item_tktop10"
                 android:icon="@drawable/icon_top10"
-                android:title="10 sản phẩm bán nhiều nhất" />
+                android:title="10 sản phẩm bán nhiều nhất"
+                android:visible="false"/>
             <item
                 android:id="@+id/item_tkdoanhthu"
                 android:icon="@drawable/icon_doanhthu"
-                android:title="Doanh thu" />
+                android:title="Doanh thu"
+                android:visible="false"/>
 
         </menu>
     </item>
     <item android:title="Bảo Mật">
         <menu>
             <item
-                android:id="@+id/item_themnd"
-                android:icon="@drawable/icon_themnd"
-                android:title="Thêm người dùng" />
+                android:id="@+id/item_qlnv"
+                android:icon="@drawable/icon_qlthanhvien"
+                android:title="Quản lý Nhân Viên"
+                android:visible="false"/>
             <item
                 android:id="@+id/item_doimk"
                 android:icon="@drawable/icon_doimk"

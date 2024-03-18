@@ -52,7 +52,9 @@ public class Activity_Home extends AppCompatActivity {
         txt_headername.setText("Welcome " + username + "!");
 
         if (user.equalsIgnoreCase("admin")) {
-            nav_menu.getMenu().findItem(R.id.item_themnd).setVisible(true);
+            nav_menu.getMenu().findItem(R.id.item_qlnv).setVisible(true);
+            nav_menu.getMenu().findItem(R.id.item_tktop10).setVisible(true);
+            nav_menu.getMenu().findItem(R.id.item_tkdoanhthu).setVisible(true);
         }
         nav_menu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -60,6 +62,8 @@ public class Activity_Home extends AppCompatActivity {
                 Fragment fragment = null;
                 if (item.getItemId() == R.id.item_qltv){
                     fragment = new Fragment_QL_ThanhVien();
+                }else if (item.getItemId() == R.id.item_qlnv) {
+                    fragment = new Fragment_QL_NhanVien();
                 }
 //                if (item.getItemId() == R.id.item_qlpm) {
 //                    fragment = new Frag_QL_Phieu_Muon();
@@ -73,45 +77,50 @@ public class Activity_Home extends AppCompatActivity {
 //                    fragment = new Frag_TK_Top10();
 //                } else if (item.getItemId() == R.id.item_tkdoanhthu) {
 //                    fragment = new Frag_TK_Doanh_Thu();
-//                } else if (item.getItemId() == R.id.item_themnd) {
-//                    fragment = new Frag_Them_Nguoi_Dung();
-//                } else if (item.getItemId() == R.id.item_doimk) {
+//                }  else if (item.getItemId() == R.id.item_doimk) {
 //                    fragment = new Frag_Doi_Mat_Khau();
 //                } else {
 //                    fragment = new Frag_QL_Phieu_Muon();
 //
 //                }
 
-
-                if (item.getItemId() == R.id.item_dangxuat) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Activity_Home.this);
-                    builder.setMessage("Bạn có chắc chắn đăng xuất khỏi tài khoản?");
-
-                    builder.setPositiveButton("Có, Đăng xuất", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Activity_Home.this, Acticity_Dang_Nhap.class);
-                            startActivity(intent);
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.setNeutralButton("Không", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            builder.create().cancel();
-                        }
-                    });
-                    builder.create().show();
-
-                }
-
+            if (fragment != null){
                 getSupportFragmentManager().beginTransaction().replace(R.id.fr_framemain, fragment).commit();
                 getSupportActionBar().setTitle(item.getTitle());
                 drawerLayout.closeDrawer(GravityCompat.START);
+            }
+                if (item.getItemId() == R.id.item_dangxuat) {
+                    showLogoutDialog();
+                }
+
                 return false;
             }
         });
     }
+
+    private void showLogoutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Activity_Home.this);
+        builder.setMessage("Bạn có chắc chắn đăng xuất khỏi tài khoản?");
+
+        builder.setPositiveButton("Có, Đăng xuất", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Activity_Home.this, Acticity_Dang_Nhap.class);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNeutralButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.create().show();
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

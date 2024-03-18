@@ -24,6 +24,7 @@ public class NhanVienDAO {
         values.put("maNV", nhanVienDTO.getMaNV());
         values.put("hoTen", nhanVienDTO.getHo_ten());
         values.put("matKhau", nhanVienDTO.getMat_khau());
+        values.put("sdt", nhanVienDTO.getSdt());
 
         return db.insert("NhanVien", null, values);
     }
@@ -32,6 +33,7 @@ public class NhanVienDAO {
         values.put("maNV", nhanVienDTO.getMaNV());
         values.put("hoTen", nhanVienDTO.getHo_ten());
         values.put("matKhau", nhanVienDTO.getMat_khau());
+        values.put("sdt", nhanVienDTO.getSdt());
 
         return db.update("NhanVien", values, "maNV=?", new String[]{nhanVienDTO.getMaNV()});
 
@@ -47,7 +49,8 @@ public class NhanVienDAO {
             NhanVienDTO obj = new NhanVienDTO(
                     c.getString(0),
                     c.getString(1),
-                    c.getString(2));
+                    c.getString(2),
+                    c.getString(3));
 
             list.add(obj);
         }

@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#5EC0EC"
-            app:title="Quản lý Phiếu Mượn"
+            app:title="?"
             app:titleTextColor="@color/white" />
 
         <FrameLayout

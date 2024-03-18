@@ -8,32 +8,24 @@
 
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tiedt_add_maTV"
+        android:id="@+id/tiedt_add_maNV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="false"
-        android:hint="Mã khách hàng"
+        android:hint="Mã nhân viên"
         android:padding="16dp" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tiedt_add_tenTV"
+        android:id="@+id/tiedt_add_tenNV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tên khách hàng"
+        android:hint="Tên nhân viên"
         android:padding="16dp" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tiedt_add_namSinh"
+        android:id="@+id/tiedt_add_matKhau"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Năm sinh"
-        android:padding="16dp" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tiedt_add_gioiTinh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Giới tính"
+        android:hint="Mật khẩu"
         android:padding="16dp" />
 
     <com.google.android.material.textfield.TextInputEditText

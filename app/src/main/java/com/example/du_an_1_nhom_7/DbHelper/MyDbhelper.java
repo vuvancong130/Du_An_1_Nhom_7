@@ -8,14 +8,14 @@ import androidx.annotation.Nullable;
 
 public class MyDbhelper extends SQLiteOpenHelper {
     public MyDbhelper(Context context) {
-        super(context, "QLKhoHang", null, 5);
+        super(context, "QLKhoHang", null, 7);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String tb_NhanVien = "CREATE TABLE NhanVien (maNV TEXT  PRIMARY KEY , hoTen TEXT NOT NULL, matKhau TEXT NOT NULL);";
+        String tb_NhanVien = "CREATE TABLE NhanVien (maNV TEXT  PRIMARY KEY , hoTen TEXT NOT NULL, matKhau TEXT NOT NULL, sdt TEXT NOT NULL);";
         db.execSQL(tb_NhanVien);
-        String insert_NhanVien = "INSERT INTO NhanVien (maNV,hoTen,matKhau) VALUES ('Admin','admin','123'), ('NvA','Nguyen Van A','123'), ('NvB','Nguyen Van B','123');";
+        String insert_NhanVien = "INSERT INTO NhanVien (maNV,hoTen,matKhau, sdt) VALUES ('Admin','admin','123', '0932167298'), ('NvA','Nguyen Van A','123','0246993156'), ('NvB','Nguyen Van B','123','0432656793');";
         db.execSQL(insert_NhanVien);
 
         String tb_ThanhVien = "CREATE TABLE ThanhVien (maTV INTEGER PRIMARY KEY AUTOINCREMENT , hoTen TEXT NOT NULL , namSinh TEXT NOT NULL , gioiTinh TEXT  NOT NULL , sodienThoai TEXT NOT NULL);";
