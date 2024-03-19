@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FBE9E7"
+    android:layout_margin="5dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/txt_maLH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mã loại hàng: 1"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/txt_tenLH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên loại hàng: "
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_thue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thuế: "
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <ImageButton
+            android:id="@+id/imgbnt_deleteLH"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_delete" />
+
+    </LinearLayout>
+
+</LinearLayout>

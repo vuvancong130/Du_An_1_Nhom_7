@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class MyDbhelper extends SQLiteOpenHelper {
     public MyDbhelper(Context context) {
-        super(context, "QLKhoHang", null, 7);
+        super(context, "QLKhoHang", null, 9);
     }
 
     @Override
@@ -22,6 +22,11 @@ public class MyDbhelper extends SQLiteOpenHelper {
         db.execSQL(tb_ThanhVien);
         String insert_ThanhVien = "INSERT INTO ThanhVien (hoTen,namSinh,gioiTinh,sodienThoai) VALUES ('Nguyen Anh B','1994','Nam','0976336726'), ('Tran Minh T','1999','Nam','0264532963'), ('Pham Thuy K','2001','Nữ','0342998678'), ('Kieu Minh A','1987','Nam','0364723456');";
         db.execSQL(insert_ThanhVien);
+
+        String tb_LoaiHang = "CREATE TABLE LoaiHang (maLH INTEGER PRIMARY KEY AUTOINCREMENT , tenLH TEXT NOT NULL , thue TEXT NOT NULL);";
+        db.execSQL(tb_LoaiHang);
+        String insert_LoaiHang = "INSERT INTO LoaiHang (tenLH,thue) VALUES ('Thưc Phẩm Tươi Sống','0,3%'),('Thực Phẩm Chế Biến Sẵn','0,4%'),('Thực Phẩm Có Đường','0,2%'),('Thực Phẩm Từ Bột & Gạo','0,1%');";
+        db.execSQL(insert_LoaiHang);
     }
 
     @Override
@@ -30,6 +35,8 @@ public class MyDbhelper extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS NhanVien");
             onCreate(db);
             db.execSQL("DROP TABLE IF EXISTS ThanhVien");
+            onCreate(db);
+            db.execSQL("DROP TABLE IF EXISTS LoaiHang");
             onCreate(db);
         }
     }

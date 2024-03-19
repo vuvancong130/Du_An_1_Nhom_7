@@ -64,12 +64,12 @@ public class Activity_Home extends AppCompatActivity {
                     fragment = new Fragment_QL_ThanhVien();
                 }else if (item.getItemId() == R.id.item_qlnv) {
                     fragment = new Fragment_QL_NhanVien();
+                }else if (item.getItemId() == R.id.item_qllh) {
+                    fragment = new Fragment_QL_LoaiHang();
                 }
 //                if (item.getItemId() == R.id.item_qlpm) {
 //                    fragment = new Frag_QL_Phieu_Muon();
-//                } else if (item.getItemId() == R.id.item_qlls) {
-//                    fragment = new Frag_QL_Loai_Sach();
-//                } else if (item.getItemId() == R.id.item_qls) {
+//                }  else if (item.getItemId() == R.id.item_qls) {
 //                    fragment = new Frag_QL_Sach();
 //                } else if (item.getItemId() == R.id.item_qltv) {
 //                    fragment = new Frag_QL_Thanh_Vien();

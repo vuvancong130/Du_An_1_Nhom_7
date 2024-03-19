@@ -7,7 +7,7 @@
                 android:icon="@drawable/icon_home"
                 android:title="Quản lý Hóa Đơn" />
             <item
-                android:id="@+id/item_qlls"
+                android:id="@+id/item_qllh"
                 android:icon="@drawable/icon_qlloaisach"
                 android:title="Quản lý Loại Hàng" />
             <item

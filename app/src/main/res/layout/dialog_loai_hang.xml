@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tiedt_add_maLH"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:hint="Mã loại hàng"
+        android:padding="16dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tiedt_add_tenLH"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tên loại hàng"
+        android:padding="16dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tiedt_add_thue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Thuế"
+        android:padding="16dp" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_addLH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_button"
+            android:drawableLeft="@drawable/icon_luu"
+            android:gravity="start"
+            android:text="LƯU"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btn_huy_addLH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_button"
+            android:drawableLeft="@drawable/icon_huy"
+            android:gravity="start"
+            android:text="HỦY"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
