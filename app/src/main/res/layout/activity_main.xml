@@ -15,7 +15,7 @@
         android:textStyle="bold"
         android:textColor="#FFC107"
         android:layout_margin="10dp"
-        android:textSize="35dp"
+        android:textSize="30dp"
         android:gravity="center"/>
 
     <ImageView
