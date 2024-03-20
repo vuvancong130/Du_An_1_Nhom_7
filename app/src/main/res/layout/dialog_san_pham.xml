@@ -10,39 +10,47 @@
 
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tiedt_add_maTV"
+        android:id="@+id/tiedt_add_maSP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:hint="Mã khách hàng"
+        android:hint="Mã SP"
         android:padding="16dp" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tiedt_add_tenTV"
+        android:id="@+id/tiedt_add_tenSP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tên khách hàng"
+        android:hint="Tên Sản Phẩm"
+        android:padding="16dp" />
+
+    <Spinner
+        android:id="@+id/sp_Add_SP"
+        android:layout_width="330dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/boder"
+        android:layout_marginTop="10dp"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tiedt_add_HSD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="HSD"
         android:padding="16dp" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tiedt_add_namSinh"
+        android:id="@+id/tiedt_add_DonGia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Năm sinh"
+        android:hint="Đơn Giá"
         android:padding="16dp" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tiedt_add_gioiTinh"
+        android:id="@+id/tiedt_add_SoLuong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Giới tính"
-        android:padding="16dp" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tiedt_add_sodienthoai"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Số điện thoại"
+        android:hint="Số Lượng"
         android:padding="16dp" />
 
     <LinearLayout
