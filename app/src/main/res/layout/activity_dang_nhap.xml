@@ -26,6 +26,7 @@
             android:id="@+id/tiedt_ten_dang_nhap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/custom_username_background"
             android:hint="Tên đăng nhập"
             />
     </com.google.android.material.textfield.TextInputLayout>
@@ -41,6 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Mật khẩu"
+            android:background="@drawable/custom_username_background"
             android:inputType="textPassword"
             />
     </com.google.android.material.textfield.TextInputLayout>
