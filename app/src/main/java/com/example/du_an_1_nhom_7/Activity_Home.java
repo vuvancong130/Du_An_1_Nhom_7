@@ -1,6 +1,7 @@
 package com.example.du_an_1_nhom_7;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -39,8 +40,12 @@ public class Activity_Home extends AppCompatActivity {
         setSupportActionBar(tb_toolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_menu);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fr_framemain, new Frag_QL_Phieu_Muon()).commit();
+        ActionBarDrawerToggle barDrawerToggle= new ActionBarDrawerToggle(this, drawerLayout,tb_toolbar,R.string.open,R.string.close);
+        barDrawerToggle.setDrawerIndicatorEnabled(true);
+        barDrawerToggle.syncState();
+        drawerLayout.addDrawerListener(barDrawerToggle);
+        tb_toolbar.setTitle("Quản lý Sản Phẩm");
+        getSupportFragmentManager().beginTransaction().add(R.id.fr_framemain,new Fragment_QL_SanPham()).commit();
 
         headerView = nav_menu.getHeaderView(0);
         txt_headername = headerView.findViewById(R.id.txt_headername);
@@ -66,9 +71,9 @@ public class Activity_Home extends AppCompatActivity {
                     fragment = new Fragment_QL_NhanVien();
                 }else if (item.getItemId() == R.id.item_qllh) {
                     fragment = new Fragment_QL_LoaiHang();
+                } else if (item.getItemId() == R.id.item_qlsp) {
+                    fragment = new Fragment_QL_SanPham();
                 }
-//                if (item.getItemId() == R.id.item_qlpm) {
-//                    fragment = new Frag_QL_Phieu_Muon();
 //                }  else if (item.getItemId() == R.id.item_qls) {
 //                    fragment = new Frag_QL_Sach();
 //                } else if (item.getItemId() == R.id.item_qltv) {
