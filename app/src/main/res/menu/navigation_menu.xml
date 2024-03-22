@@ -11,7 +11,7 @@
                 android:icon="@drawable/icon_qlloaisach"
                 android:title="Quản lý Loại Hàng" />
             <item
-                android:id="@+id/item_qls"
+                android:id="@+id/item_qlsp"
                 android:icon="@drawable/icon_qlsach"
                 android:title="Quản lý Sản Phẩm" />
             <item
