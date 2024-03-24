@@ -129,8 +129,12 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.LSView
                         } else {
                             int kq = holder.loaiHangDAO.update(loaiHangDTO);
                             if (kq > 0) {
+                                Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
                                 notifyDataSetChanged();
                                 dialog.dismiss();
+                            }else{
+                                Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
+
                             }
                         }
 

@@ -45,6 +45,6 @@ public class Spinner_LoaiHang_Adapter extends BaseAdapter {
 
         txt_maLS.setText(list.get(position).getMa_loai_hang() + " ");
         txt_tenLS.setText(list.get(position).getTen_loai_hang());
-        return null;
+        return convertView;
     }
 }

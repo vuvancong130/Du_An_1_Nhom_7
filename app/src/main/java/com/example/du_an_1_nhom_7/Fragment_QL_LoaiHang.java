@@ -84,11 +84,8 @@ public class Fragment_QL_LoaiHang extends Fragment {
         btn_addLH = dialog.findViewById(R.id.btn_addLH);
         btn_huy_addLH = dialog.findViewById(R.id.btn_huy_addLH);
 
-        if (type != 0) {
-            tiedt_add_maLH.setText(String.valueOf(loaiHangDTO.getMa_loai_hang()));
-            tiedt_add_tenLH.setText(loaiHangDTO.getTen_loai_hang());
-            tiedt_add_thue.setText(loaiHangDTO.getThue());
-        }
+
+        tiedt_add_maLH.setEnabled(false);
 
         btn_huy_addLH.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,15 +105,6 @@ public class Fragment_QL_LoaiHang extends Fragment {
                             Toast.makeText(context, "Thêm thành công.", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(context, "Thêm thất bại.", Toast.LENGTH_SHORT).show();
-
-                        }
-                    } else {
-                        loaiHangDTO.setMa_loai_hang(Integer.parseInt(tiedt_add_maLH.getText().toString()));
-                        if (loaiHangDAO.update(loaiHangDTO) > 0) {
-                            Toast.makeText(context, "Sửa thành công.", Toast.LENGTH_SHORT).show();
-
-                        } else {
-                            Toast.makeText(context, "Sửa thất bại.", Toast.LENGTH_SHORT).show();
 
                         }
                     }
