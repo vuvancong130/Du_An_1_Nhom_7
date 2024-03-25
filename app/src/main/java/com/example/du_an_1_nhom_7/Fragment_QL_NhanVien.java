@@ -2,6 +2,8 @@ package com.example.du_an_1_nhom_7;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -111,6 +113,7 @@ public class Fragment_QL_NhanVien extends Fragment {
                 }
             }
         });
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 
