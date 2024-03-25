@@ -44,8 +44,8 @@ public class SanPhamDAO {
 
     }
 
-    public int delete(SanPhamDTO sanPhamDTO) {
-        return db.delete("SanPham", "maSP=?", new String[]{String.valueOf(sanPhamDTO.getMa_SP())});
+    public int delete(String id) {
+        return db.delete("SanPham", "maSP=?", new String[]{id});
 
     }
 
