@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="#5EC0EC"
+    android:background="#A5E2FD"
     tools:context=".Acticity_Dang_Nhap">
 
     <ImageView
@@ -19,13 +19,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:padding="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiedt_ten_dang_nhap"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="Tên đăng nhập"
             />
     </com.google.android.material.textfield.TextInputLayout>
