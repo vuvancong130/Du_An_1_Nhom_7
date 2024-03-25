@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,7 +107,7 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.LSView
                 tiedt_add_maLH.setText(String.valueOf(list.get(position).getMa_loai_hang()));
                 tiedt_add_tenLH.setText(list.get(position).getTen_loai_hang());
                 tiedt_add_thue.setText(list.get(position).getThue());
-
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
                 btn_huy_addLH.setOnClickListener(new View.OnClickListener() {

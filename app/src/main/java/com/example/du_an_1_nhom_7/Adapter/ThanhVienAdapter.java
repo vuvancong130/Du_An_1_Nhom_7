@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,7 +113,7 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.TVie
                 tiedt_add_namSinh.setText(list.get(position).getNam_sinh());
                 tiedt_add_gioiTinh.setText(list.get(position).getGioi_tinh());
                 tiedt_add_sodienthoai.setText(list.get(position).getSo_dien_thoai());
-
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
                 btn_huy_addTV.setOnClickListener(new View.OnClickListener() {
