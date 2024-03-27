@@ -6,27 +6,28 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.du_an_1_nhom_7.DTO.NhanVienDTO;
 import com.example.du_an_1_nhom_7.DTO.ThanhVienDTO;
 import com.example.du_an_1_nhom_7.R;
 
 import java.util.ArrayList;
 
-public class Spinner_ThanhVien_Adapter extends BaseAdapter {
+public class Spinner_NhanVien_Adapter extends BaseAdapter {
     Context context;
-    ArrayList<ThanhVienDTO> listTV;
+    ArrayList<NhanVienDTO> list;
 
-    public Spinner_ThanhVien_Adapter(Context context, ArrayList<ThanhVienDTO> listTV){
+    public Spinner_NhanVien_Adapter(Context context, ArrayList<NhanVienDTO> list){
         this.context = context;
-        this.listTV = listTV;
+        this.list = list;
     }
     @Override
     public int getCount() {
-        return listTV.size();
+        return list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return listTV.get(position);
+        return list.get(position);
     }
 
     @Override
@@ -36,12 +37,12 @@ public class Spinner_ThanhVien_Adapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = View.inflate(parent.getContext(), R.layout.spinner_thanh_vien, null);
-        TextView txt_maTV = convertView.findViewById(R.id.txt_maTV);
-        TextView txt_tenTV = convertView.findViewById(R.id.txt_tenTV);
+        convertView = View.inflate(parent.getContext(), R.layout.spinner_nhan_vien, null);
+        TextView txt_maNV = convertView.findViewById(R.id.txt_spn_maNV);
+        TextView txt_tenNV = convertView.findViewById(R.id.txt_spn_tenNV);
 
-        txt_maTV.setText("Mã TV: "+listTV.get(position).getMaTV() + " ");
-        txt_tenTV.setText(listTV.get(position).getHo_ten());
+        txt_maNV.setText("Mã NV: "+list.get(position).getMaNV() + " ");
+        txt_tenNV.setText(list.get(position).getHo_ten());
         return convertView;
     }
 }

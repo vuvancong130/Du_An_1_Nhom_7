@@ -3,7 +3,7 @@
     <item android:title="Quản Lý">
         <menu>
             <item
-                android:id="@+id/item_qlpm"
+                android:id="@+id/item_qlhd"
                 android:icon="@drawable/icon_home"
                 android:title="Quản lý Hóa Đơn" />
             <item

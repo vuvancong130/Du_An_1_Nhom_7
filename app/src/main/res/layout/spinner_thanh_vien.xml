@@ -2,25 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:padding="5dp">
+    android:layout_marginLeft="10dp">
 
     <TextView
         android:id="@+id/txt_maTV"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="1"
-        android:textSize="24sp" />
+        android:layout_marginLeft="15dp"
+        android:text="1" />
 
     <TextView
         android:id="@+id/txt_tenTV"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="text"
+        android:layout_marginLeft="20dp"
         android:textColor="#FF7043"
-        android:textSize="26sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
 </LinearLayout>
