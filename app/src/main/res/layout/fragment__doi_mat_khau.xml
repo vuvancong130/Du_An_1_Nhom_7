@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
-    android:background="#A5E2FD"
-    tools:context=".Acticity_Dang_Nhap">
+    android:orientation="vertical">
 
     <ImageView
-        android:layout_marginTop="-70dp"
-        android:layout_width="340dp"
-        android:layout_height="250dp"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
         android:layout_gravity="center"
-        android:src="@drawable/img_4" />
+        app:tint="#1E88E5"
+        android:src="@drawable/icon_doimk" />
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="30dp">
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:padding="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiedt_ten_dang_nhap"
+            android:id="@+id/tiedt_mkcu"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Tên đăng nhập"
+            android:layout_height="wrap_content"
+            android:hint="Mật khẩu cũ"
+            android:inputType="textPassword"
+
             />
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -37,23 +39,35 @@
         android:padding="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiedt_mat_khau"
+            android:id="@+id/tiedt_mkmoi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Mật khẩu"
             android:inputType="textPassword"
+
+
             />
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <CheckBox
-        android:id="@+id/chk_luumk"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
-        android:text="Lưu mật khẩu"
-        android:textStyle="bold" />
+        android:padding="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiedt_nhaplaimkmoi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Nhập lại mật khẩu"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,33 +77,37 @@
         android:padding="10dp">
 
         <Button
-            android:id="@+id/btn_dangnhap"
-            android:layout_width="match_parent"
+
+            android:id="@+id/btn_luu_mkmoi"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginHorizontal="10dp"
-            android:layout_weight="1"
-            android:text="ĐĂNG NHẬP"
-            android:textColor="#4CAF50"
             android:background="@drawable/layout_btn_doanh_thu"
-            android:textSize="17sp"
+            android:drawableLeft="@drawable/icon_luu"
+            android:text="LƯU"
+
+            android:textColor="@color/black"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/btn_huydangnhap"
-            android:layout_width="match_parent"
+
+            android:id="@+id/btn_huy_luu_mkmoi"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginHorizontal="10dp"
-            android:layout_weight="1"
             android:background="@drawable/layout_btn_doanh_thu"
+            android:drawableLeft="@drawable/icon_huy"
             android:text="HỦY"
-            android:textColor="#F44336"
-            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:backgroundTint="@null" />
 
     </LinearLayout>
+
 
 </LinearLayout>
