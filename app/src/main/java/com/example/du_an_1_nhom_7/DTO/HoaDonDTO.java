@@ -6,33 +6,24 @@ public class HoaDonDTO {
     private String maNV;
     private int maTV;
     private int maSP;
-    private String ngay;
     private int soLuong;
-    private int trangThai;
-    private int nhapXuat;
+    private  int donGia;
+    private String ngayXuat;
+    private int nhap_xuat;
 
     public HoaDonDTO() {
     }
 
-    public HoaDonDTO(String maNV, int maTV, int maSP, String ngay, int soLuong, int trangThai, int nhapXuat) {
-        this.maNV = maNV;
-        this.maTV = maTV;
-        this.maSP = maSP;
-        this.ngay = ngay;
-        this.soLuong = soLuong;
-        this.trangThai = trangThai;
-        this.nhapXuat = nhapXuat;
-    }
 
-    public HoaDonDTO(int maHD, String maNV, int maTV, int maSP, String ngay, int soLuong, int trangThai, int nhapXuat) {
+    public HoaDonDTO(int maHD, String maNV, int maTV, int maSP, int soLuong, int donGia, String ngayXuat, int nhap_xuat) {
         this.maHD = maHD;
         this.maNV = maNV;
         this.maTV = maTV;
         this.maSP = maSP;
-        this.ngay = ngay;
         this.soLuong = soLuong;
-        this.trangThai = trangThai;
-        this.nhapXuat = nhapXuat;
+        this.donGia = donGia;
+        this.ngayXuat = ngayXuat;
+        this.nhap_xuat = nhap_xuat;
     }
 
     public int getMaHD() {
@@ -67,14 +58,6 @@ public class HoaDonDTO {
         this.maSP = maSP;
     }
 
-    public String getNgay() {
-        return ngay;
-    }
-
-    public void setNgay(String ngay) {
-        this.ngay = ngay;
-    }
-
     public int getSoLuong() {
         return soLuong;
     }
@@ -83,19 +66,27 @@ public class HoaDonDTO {
         this.soLuong = soLuong;
     }
 
-    public int getTrangThai() {
-        return trangThai;
+    public int getDonGia() {
+        return donGia;
     }
 
-    public void setTrangThai(int trangThai) {
-        this.trangThai = trangThai;
+    public void setDonGia(int donGia) {
+        this.donGia = donGia;
     }
 
-    public int getNhapXuat() {
-        return nhapXuat;
+    public String getNgayXuat() {
+        return ngayXuat;
     }
 
-    public void setNhapXuat(int nhapXuat) {
-        this.nhapXuat = nhapXuat;
+    public void setNgayXuat(String ngayXuat) {
+        this.ngayXuat = ngayXuat;
+    }
+
+    public int getNhap_xuat() {
+        return nhap_xuat;
+    }
+
+    public void setNhap_xuat(int nhap_xuat) {
+        this.nhap_xuat = nhap_xuat;
     }
 }

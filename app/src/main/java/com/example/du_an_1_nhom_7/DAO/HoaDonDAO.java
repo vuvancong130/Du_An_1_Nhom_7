@@ -23,35 +23,43 @@ public class HoaDonDAO {
 
     public long insert(HoaDonDTO hd){
         ContentValues values=new ContentValues();
-        values.put("maSP",hd.getMaSP());
+        values.put("maHD",hd.getMaHD());
         values.put("maNV",hd.getMaNV());
         values.put("maTV",hd.getMaTV());
-        values.put("ngay",hd.getNgay());
+        values.put("maSP",hd.getMaSP());
         values.put("soLuong",hd.getSoLuong());
-        values.put("trangThai",hd.getTrangThai());
-        values.put("nhapXuat",hd.getNhapXuat());
+        values.put("donGia",hd.getDonGia());
+        values.put("ngayXuat",hd.getNgayXuat());
+        values.put("nhap_xuat",hd.getNhap_xuat());
+
         return db.insert("HoaDon",null,values);
     }
     public int update(HoaDonDTO hd){
         ContentValues values=new ContentValues();
-        values.put("maSP",hd.getMaSP());
+        values.put("maHD",hd.getMaHD());
         values.put("maNV",hd.getMaNV());
         values.put("maTV",hd.getMaTV());
-        values.put("ngay",hd.getNgay());
+        values.put("maSP",hd.getMaSP());
         values.put("soLuong",hd.getSoLuong());
-        values.put("trangThai",hd.getTrangThai());
-        values.put("nhapXuat",hd.getNhapXuat());
+        values.put("donGia",hd.getDonGia());
+        values.put("ngayXuat",hd.getNgayXuat());
+        values.put("nhap_xuat",hd.getNhap_xuat());
+
         String[] dk=new String[]{String.valueOf(hd.getMaHD())};
         return db.update("HoaDon",values,"maHD=?",dk);
     }
     public int delete(String id){
         return db.delete("HoaDon","maHD=?",new String[]{id});
     }
+
+    //get all
     public ArrayList<HoaDonDTO> getAll(){
         String sql="SELECT * FROM HOADON";
         return getData(sql);
     }
-    //maSP,maNV,maTV,ngay,soLuong,trangThai,nhapXuat
+
+
+    //get data
     @SuppressLint("Range")
     private ArrayList<HoaDonDTO> getData(String sql,String...selectionArgs){
         ArrayList<HoaDonDTO> list_hd=new ArrayList<>();
@@ -62,15 +70,18 @@ public class HoaDonDAO {
                     c.getString(c.getColumnIndex("maNV")),
                     c.getInt(c.getColumnIndex("maTV")),
                     c.getInt(c.getColumnIndex("maSP")),
-                    c.getString(c.getColumnIndex("ngay")),
                     c.getInt(c.getColumnIndex("soLuong")),
-                    c.getInt(c.getColumnIndex("trangThai")),
-                    c.getInt(c.getColumnIndex("nhapXuat"))
+                    c.getInt(c.getColumnIndex("donGia")),
+                    c.getString(c.getColumnIndex("ngayXuat")),
+                    c.getInt(c.getColumnIndex("nhap_xuat"))
+
             );
             list_hd.add(obj);
         }
         return list_hd;
     }
+
+    //get data id
     public HoaDonDTO getID(String id){
         String sql = "SELECT * FROM HoaDon WHERE maHD = ?";
         List<HoaDonDTO> list = getData(sql, id);

@@ -20,7 +20,7 @@ public class MyDbhelper extends SQLiteOpenHelper {
 
         String tb_ThanhVien = "CREATE TABLE ThanhVien (maTV INTEGER PRIMARY KEY AUTOINCREMENT , hoTen TEXT NOT NULL , namSinh TEXT NOT NULL , gioiTinh TEXT  NOT NULL , sodienThoai TEXT NOT NULL);";
         db.execSQL(tb_ThanhVien);
-        String insert_ThanhVien = "INSERT INTO ThanhVien (hoTen,namSinh,gioiTinh,sodienThoai) VALUES ('Nguyen Anh B','1994','Nam','0976336726'), ('Tran Minh T','1999','Nam','0264532963'), ('Pham Thuy K','2001','Nữ','0342998678'), ('Kieu Minh A','1987','Nam','0364723456');";
+        String insert_ThanhVien = "INSERT INTO ThanhVien (hoTen,namSinh,gioiTinh,sodienThoai) VALUES ('c','1994','Nam','0976336726'), ('Tran Minh T','1999','Nam','0264532963'), ('Pham Thuy K','2001','Nữ','0342998678'), ('Kieu Minh A','1987','Nam','0364723456');";
         db.execSQL(insert_ThanhVien);
 
         String tb_LoaiHang = "CREATE TABLE LoaiHang (maLH INTEGER PRIMARY KEY AUTOINCREMENT , tenLH TEXT NOT NULL , thue TEXT NOT NULL);";
@@ -33,6 +33,11 @@ public class MyDbhelper extends SQLiteOpenHelper {
         String insert_SanPham = "INSERT INTO SanPham (tenSP,maLH,HSD,donGia,soLuong) VALUES ('kẹo milo',2,'12-12-2026',12000,20),('kẹo milo',2,'12-12-2026',12000,20),('kẹo milo',2,'12-12-2026',12000,20),('kẹo milo',2,'12-12-2026',12000,20);";
         db.execSQL(insert_SanPham);
 
+
+        String tb_HoaDon = "CREATE TABLE HoaDon (maHD INTEGER PRIMARY KEY AUTOINCREMENT, maNV TEXT REFERENCES NhanVien(maNV), maTV INTEGER REFERENCES ThanhVien(maTV), maSP INTEGER REFERENCES SanPham(maSP), soLuong INTEGER NOT NULL, donGia INTEGER NOT NULL, ngayXuat TEXT NOT NULL, nhap_xuat INTEGER NOT NULL);";
+        db.execSQL(tb_HoaDon);
+        String insert_HoaDon = "INSERT INTO HoaDon ( maNV, maTV, maSP, soLuong, donGia, ngayXuat, nhap_xuat) VALUES ('NvA',1,1,1000,12000,'1-4-2024',1),('NvB',2,2,1000,12000,'1-4-2024',1),('NvA',1,2,1000,12000,'1-4-2024',0);";
+        db.execSQL(insert_HoaDon);
 
     }
 

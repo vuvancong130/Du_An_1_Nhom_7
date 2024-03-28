@@ -73,8 +73,10 @@ public class Activity_Home extends AppCompatActivity {
                     fragment = new Fragment_QL_LoaiHang();
                 } else if (item.getItemId() == R.id.item_qlsp) {
                     fragment = new Fragment_QL_SanPham();
-                } else if (item.getItemId() == R.id.item_doimk) {
+                }   else if (item.getItemId() == R.id.item_doimk) {
                     fragment = new Fragment_DoiMatKhau();
+                }   else if (item.getItemId() == R.id.item_qlhd) {
+                    fragment = new Fragment_QL_HoaDon();
                 }
 //                }  else if (item.getItemId() == R.id.item_qls) {
 //                    fragment = new Frag_QL_Sach();
@@ -84,7 +86,9 @@ public class Activity_Home extends AppCompatActivity {
 //                    fragment = new Frag_TK_Top10();
 //                } else if (item.getItemId() == R.id.item_tkdoanhthu) {
 //                    fragment = new Frag_TK_Doanh_Thu();
-//                }   else {
+//                }  else if (item.getItemId() == R.id.item_doimk) {
+//                    fragment = new Frag_Doi_Mat_Khau();
+//                } else {
 //                    fragment = new Frag_QL_Phieu_Muon();
 //
 //                }
