@@ -23,7 +23,7 @@ public class HoaDonDAO {
 
     public long insert(HoaDonDTO hd){
         ContentValues values=new ContentValues();
-        values.put("maHD",hd.getMaHD());
+
         values.put("maNV",hd.getMaNV());
         values.put("maTV",hd.getMaTV());
         values.put("maSP",hd.getMaSP());
@@ -31,12 +31,12 @@ public class HoaDonDAO {
         values.put("donGia",hd.getDonGia());
         values.put("ngayXuat",hd.getNgayXuat());
         values.put("nhap_xuat",hd.getNhap_xuat());
+        values.put("trangThai",hd.getTrangThai());
 
         return db.insert("HoaDon",null,values);
     }
     public int update(HoaDonDTO hd){
         ContentValues values=new ContentValues();
-        values.put("maHD",hd.getMaHD());
         values.put("maNV",hd.getMaNV());
         values.put("maTV",hd.getMaTV());
         values.put("maSP",hd.getMaSP());
@@ -44,6 +44,8 @@ public class HoaDonDAO {
         values.put("donGia",hd.getDonGia());
         values.put("ngayXuat",hd.getNgayXuat());
         values.put("nhap_xuat",hd.getNhap_xuat());
+        values.put("trangThai",hd.getTrangThai());
+
 
         String[] dk=new String[]{String.valueOf(hd.getMaHD())};
         return db.update("HoaDon",values,"maHD=?",dk);
@@ -54,7 +56,7 @@ public class HoaDonDAO {
 
     //get all
     public ArrayList<HoaDonDTO> getAll(){
-        String sql="SELECT * FROM HOADON";
+        String sql="SELECT * FROM HoaDon";
         return getData(sql);
     }
 
@@ -73,9 +75,10 @@ public class HoaDonDAO {
                     c.getInt(c.getColumnIndex("soLuong")),
                     c.getInt(c.getColumnIndex("donGia")),
                     c.getString(c.getColumnIndex("ngayXuat")),
-                    c.getInt(c.getColumnIndex("nhap_xuat"))
+                    c.getInt(c.getColumnIndex("nhap_xuat")),
+                    c.getInt(c.getColumnIndex("trangThai")));
 
-            );
+
             list_hd.add(obj);
         }
         return list_hd;
