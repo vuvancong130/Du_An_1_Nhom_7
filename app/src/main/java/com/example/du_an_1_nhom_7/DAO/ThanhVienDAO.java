@@ -29,9 +29,7 @@ public class ThanhVienDAO {
         } else {
             return -1;
         }
-        long result = db.insert("ThanhVien", null, values);
-        db.close();
-        return result;
+        return db.insert("ThanhVien",null,values);
     }
     public int update(ThanhVienDTO thanhVienDTO) {
         ContentValues values = new ContentValues();
@@ -69,8 +67,9 @@ public class ThanhVienDAO {
                         c.getInt(c.getColumnIndex("maTV")),
                         c.getString(c.getColumnIndex("hoTen")),
                         c.getString(c.getColumnIndex("namSinh")),
-                        c.getString(c.getColumnIndex("gioiTinh")),
-                        c.getString(c.getColumnIndex("sodienThoai")));
+                        c.getString(c.getColumnIndex("sodienThoai")),
+                        c.getInt(c.getColumnIndex("gioiTinh"))
+                        );
                 list.add(obj);
             } while (c.moveToNext());
             c.close(); // Đóng Cursor sau khi sử dụng

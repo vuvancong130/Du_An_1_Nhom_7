@@ -26,9 +26,14 @@
     <item android:title="Thống Kê">
         <menu>
             <item
-                android:id="@+id/item_tktop10"
+                android:id="@+id/item_tktop10_nhap"
                 android:icon="@drawable/icon_top10"
-                android:title="10 sản phẩm bán nhiều nhất"
+                android:title="10 sản phẩm nhập nhiều nhất"
+                android:visible="false"/>
+            <item
+                android:id="@+id/item_tktop10_xuat"
+                android:icon="@drawable/icon_top10"
+                android:title="10 sản phẩm xuất nhiều nhất"
                 android:visible="false"/>
             <item
                 android:id="@+id/item_tkdoanhthu"

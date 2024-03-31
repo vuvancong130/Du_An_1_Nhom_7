@@ -51,6 +51,8 @@ public class Fragment_QL_HoaDon extends Fragment {
     FloatingActionButton fab_hoa_don;
     ArrayList<HoaDonDTO> list_hd;
     EditText tiedt_add_maHD, tiedt_add_SoLuong, tiedt_add_DonGia, tiedt_add_ngayXuat;
+    RadioGroup rd_gr2, radioGroup;
+    RadioButton rdo_duyet,rdo_cduyet;
     Button btn_addHD, btn_huy_addHD;
     Dialog dialog;
     Spinner sp_lh_addNV, sp_lh_addTV, sp_lh_addSP;
@@ -101,28 +103,15 @@ public class Fragment_QL_HoaDon extends Fragment {
         sp_lh_addSP = dialog.findViewById(R.id.sp_lh_addSP);
         tiedt_add_SoLuong = dialog.findViewById(R.id.tiedt_add_soLuong_hd);
         tiedt_add_DonGia = dialog.findViewById(R.id.tiedt_add_DonGia_hd);
-
+        rd_gr2=dialog.findViewById(R.id.rd_gr2);
+        rdo_duyet=dialog.findViewById(R.id.rd_duyet);
+        rdo_cduyet=dialog.findViewById(R.id.rd_cduyet);
         rd_nhap = dialog.findViewById(R.id.rd_nhap);
         rd_xuat = dialog.findViewById(R.id.rd_xuat);
-
         tiedt_add_ngayXuat = dialog.findViewById(R.id.tiedt_add_ngayXuat);
-
-        RadioGroup radioGroup = dialog.findViewById(R.id.rd_gr);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(R.id.rd_nhap == checkedId) {
-
-                } else if (R.id.rd_xuat == checkedId) {
-
-                }
-            }
-        });
-
+         radioGroup = dialog.findViewById(R.id.rd_gr);
         btn_addHD = dialog.findViewById(R.id.btn_addHD);
         btn_huy_addHD = dialog.findViewById(R.id.btn_huy_addHD);
-
         tiedt_add_maHD.setEnabled(false);
 
         list_nv = new ArrayList<>();
@@ -194,13 +183,28 @@ public class Fragment_QL_HoaDon extends Fragment {
                 hdDTO.setMaNV(mNV);
                 hdDTO.setMaTV(mTV);
                 hdDTO.setMaSP(mSP);
-                hdDTO.setNgayXuat(tiedt_add_DonGia.getText().toString());
+                hdDTO.setNgayXuat(tiedt_add_ngayXuat.getText().toString());
 
-                if (rd_nhap.isChecked()){
-                    hdDTO.setNhap_xuat(0);
-                } else if (rd_xuat.isChecked()){
-                    hdDTO.setNhap_xuat(1);
-                }
+                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        if(rd_nhap.isChecked()){
+                            hdDTO.setNhap_xuat(0);
+                        }else if(rd_xuat.isChecked()){
+                            hdDTO.setNhap_xuat(1);
+                        }
+                    }
+                });
+                rd_gr2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        if(rdo_duyet.isChecked()){
+                            hdDTO.setTrangThai(1);
+                        }else if(rdo_cduyet.isChecked()){
+                            hdDTO.setTrangThai(0);
+                        }
+                    }
+                });
 
                 if(validate()>0){
                     hdDTO.setSoLuong(Integer.parseInt(tiedt_add_SoLuong.getText().toString()));

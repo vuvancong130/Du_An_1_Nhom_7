@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="330dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp"
@@ -24,14 +24,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nhan vien: "
+            android:text="Nhân viên: "
             android:layout_marginTop="10dp"
             android:textSize="18dp"
             />
 
         <Spinner
             android:id="@+id/sp_lh_addNV"
-            android:layout_width="240dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="0dp"
@@ -47,13 +47,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thanh vien: "
+            android:text="Thành viên: "
             android:layout_marginTop="10dp"
             android:textSize="18dp"
             />
         <Spinner
             android:id="@+id/sp_lh_addTV"
-            android:layout_width="240dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/boder"
@@ -69,13 +69,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="San pham: "
+            android:text="Sản phẩm: "
             android:layout_marginTop="10dp"
             android:textSize="18dp"
             />
         <Spinner
             android:id="@+id/sp_lh_addSP"
-            android:layout_width="240dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/boder"
@@ -108,10 +108,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loại hóa đơn: "
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+           />
 
         <RadioGroup
             android:id="@+id/rd_gr"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
@@ -119,20 +128,55 @@
                 android:id="@+id/rd_nhap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hóa đơn nhập"
+                android:text="Nhập"
                 android:textSize="16dp" />
 
             <RadioButton
                 android:id="@+id/rd_xuat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hóa đơn xuất"
+                android:text="Xuất"
+                android:layout_marginLeft="35dp"
                 android:textSize="16dp" />
         </RadioGroup>
 
     </LinearLayout>
 
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trạng thái: "
+        android:textSize="18dp"
+        android:layout_marginLeft="10dp"
+        />
+    <RadioGroup
+        android:id="@+id/rd_gr2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
 
+        android:layout_height="match_parent" >
+
+        <RadioButton
+            android:id="@+id/rd_duyet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đã duyệt"
+            android:textSize="16dp" />
+
+        <RadioButton
+            android:id="@+id/rd_cduyet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chưa duyệt"
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp" />
+    </RadioGroup>
+</LinearLayout>
 
 
     <LinearLayout

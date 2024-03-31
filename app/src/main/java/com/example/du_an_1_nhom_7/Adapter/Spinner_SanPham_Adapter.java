@@ -41,7 +41,7 @@ public class Spinner_SanPham_Adapter extends BaseAdapter {
         TextView txt_maSP = convertView.findViewById(R.id.txt_spn_maSP);
         TextView txt_tenSP = convertView.findViewById(R.id.txt_spn_tenSP);
 
-        txt_maSP.setText("Mã SP: "+listSP.get(position).getMa_SP() + " ");
+        txt_maSP.setText(listSP.get(position).getMa_SP() + " ");
         txt_tenSP.setText(listSP.get(position).getTen_SP());
         return convertView;
     }
