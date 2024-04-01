@@ -67,8 +67,9 @@ public class ThanhVienDAO {
                         c.getInt(c.getColumnIndex("maTV")),
                         c.getString(c.getColumnIndex("hoTen")),
                         c.getString(c.getColumnIndex("namSinh")),
-                        c.getString(c.getColumnIndex("gioiTinh")),
-                        c.getString(c.getColumnIndex("sodienThoai")));
+                        c.getString(c.getColumnIndex("sodienThoai")),
+                        c.getInt(c.getColumnIndex("gioiTinh"))
+                        );
                 list.add(obj);
             } while (c.moveToNext());
             c.close();

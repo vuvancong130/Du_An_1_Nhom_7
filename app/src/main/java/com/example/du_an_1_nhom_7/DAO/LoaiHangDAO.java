@@ -49,8 +49,8 @@ public class LoaiHangDAO {
         Cursor c = db.rawQuery(sql, selectionArgs);
         while (c.moveToNext()){
             LoaiHangDTO obj = new LoaiHangDTO(c.getInt(c.getColumnIndex("maLH")),
-                                              c.getString(c.getColumnIndex("tenLH")),
-                                              c.getString(c.getColumnIndex("thue")));
+                    c.getString(c.getColumnIndex("tenLH")),
+                    c.getString(c.getColumnIndex("thue")));
             list.add(obj);
         }
         return list;

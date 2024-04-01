@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    tools:context=".Fragment_DoanhThu">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:text="Từ ngày:" />
+
+        <TextView
+            android:id="@+id/txt_tungay"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:backgroundTint="#4CAF50"
+            android:background="@drawable/boder_item"
+            android:textSize="20dp"
+            android:text="Bấm để chọn ngày" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:textSize="20dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Đến ngày" />
+
+        <TextView
+            android:id="@+id/txt_denngay"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:text="Bấm để chọn ngày"
+            android:gravity="center"
+            android:background="@drawable/boder_item"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_xemdt"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Xem doanh thu" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Doanh thu: "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_doanhthu"
+            android:textSize="20dp"
+            android:textColor="#FF5722"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="VNĐ"/>
+    </LinearLayout>
+</LinearLayout>

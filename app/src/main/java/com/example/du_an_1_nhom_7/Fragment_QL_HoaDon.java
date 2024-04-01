@@ -3,6 +3,7 @@ package com.example.du_an_1_nhom_7;
 import static androidx.constraintlayout.motion.widget.TransitionBuilder.validate;
 
 import android.annotation.SuppressLint;
+import java.text.DecimalFormat;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -51,8 +53,11 @@ public class Fragment_QL_HoaDon extends Fragment {
     FloatingActionButton fab_hoa_don;
     ArrayList<HoaDonDTO> list_hd;
     EditText tiedt_add_maHD, tiedt_add_SoLuong, tiedt_add_DonGia, tiedt_add_ngayXuat;
+    RadioGroup rd_gr2, radioGroup;
+    RadioButton rdo_duyet,rdo_cduyet;
     Button btn_addHD, btn_huy_addHD;
     Dialog dialog;
+    TextView txt_tinhtongtien;
     Spinner sp_lh_addNV, sp_lh_addTV, sp_lh_addSP;
     ArrayList<NhanVienDTO> list_nv;
     NhanVienDAO nhanVienDAO;
@@ -101,28 +106,16 @@ public class Fragment_QL_HoaDon extends Fragment {
         sp_lh_addSP = dialog.findViewById(R.id.sp_lh_addSP);
         tiedt_add_SoLuong = dialog.findViewById(R.id.tiedt_add_soLuong_hd);
         tiedt_add_DonGia = dialog.findViewById(R.id.tiedt_add_DonGia_hd);
-
+        txt_tinhtongtien=dialog.findViewById(R.id.txt_tinhtongtien);
+        rd_gr2=dialog.findViewById(R.id.rd_gr2);
+        rdo_duyet=dialog.findViewById(R.id.rd_duyet);
+        rdo_cduyet=dialog.findViewById(R.id.rd_cduyet);
         rd_nhap = dialog.findViewById(R.id.rd_nhap);
         rd_xuat = dialog.findViewById(R.id.rd_xuat);
-
         tiedt_add_ngayXuat = dialog.findViewById(R.id.tiedt_add_ngayXuat);
-
-        RadioGroup radioGroup = dialog.findViewById(R.id.rd_gr);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(R.id.rd_nhap == checkedId) {
-
-                } else if (R.id.rd_xuat == checkedId) {
-
-                }
-            }
-        });
-
+        radioGroup = dialog.findViewById(R.id.rd_gr);
         btn_addHD = dialog.findViewById(R.id.btn_addHD);
         btn_huy_addHD = dialog.findViewById(R.id.btn_huy_addHD);
-
         tiedt_add_maHD.setEnabled(false);
 
         list_nv = new ArrayList<>();
@@ -180,6 +173,24 @@ public class Fragment_QL_HoaDon extends Fragment {
         });
 
 
+        tiedt_add_DonGia.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    tinhtong();
+                }
+            }
+        });
+        tiedt_add_SoLuong.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    tinhtong();
+                }
+            }
+        });
+
+
         btn_huy_addHD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,13 +205,22 @@ public class Fragment_QL_HoaDon extends Fragment {
                 hdDTO.setMaNV(mNV);
                 hdDTO.setMaTV(mTV);
                 hdDTO.setMaSP(mSP);
-                hdDTO.setNgayXuat(tiedt_add_DonGia.getText().toString());
+                hdDTO.setNgayXuat(tiedt_add_ngayXuat.getText().toString());
 
-                if (rd_nhap.isChecked()){
+
+                if(rd_nhap.isChecked()){
                     hdDTO.setNhap_xuat(0);
-                } else if (rd_xuat.isChecked()){
+                }else if(rd_xuat.isChecked()){
                     hdDTO.setNhap_xuat(1);
                 }
+
+
+                if(rdo_duyet.isChecked()){
+                    hdDTO.setTrangThai(1);
+                }else if(rdo_cduyet.isChecked()){
+                    hdDTO.setTrangThai(0);
+                }
+
 
                 if(validate()>0){
                     hdDTO.setSoLuong(Integer.parseInt(tiedt_add_SoLuong.getText().toString()));
@@ -258,5 +278,21 @@ public class Fragment_QL_HoaDon extends Fragment {
         list_hd = (ArrayList<HoaDonDTO>) hoaDonDAO.getAll();
         hoaDonAdapter = new HoaDonAdapter(list_hd,getContext());
         rc_hoa_don.setAdapter(hoaDonAdapter);
+    }
+    private void tinhtong(){
+        try {
+            int soluong=Integer.parseInt(tiedt_add_SoLuong.getText().toString());
+            int dongia=Integer.parseInt(tiedt_add_DonGia.getText().toString());
+            int tong=soluong*dongia;
+            String format=dinhdang(tong);
+            txt_tinhtongtien.setText(String.valueOf(format));
+        }catch(NumberFormatException e){
+
+            txt_tinhtongtien.setText("");
+        }
+    }
+    public String dinhdang(double number) {
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###.##"); // Định dạng chuỗi với dấu chấm
+        return decimalFormat.format(number);
     }
 }

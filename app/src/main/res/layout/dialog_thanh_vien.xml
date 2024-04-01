@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp"
@@ -31,12 +31,38 @@
         android:hint="Năm sinh"
         android:padding="16dp" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tiedt_add_gioiTinh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Giới tính"
-        android:padding="16dp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="-10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giới tính: "
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+
+            android:layout_marginTop="10dp"/>
+        <RadioGroup
+            android:id="@+id/rdo_gr_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rdo_nam"
+                android:text="Nam"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+
+                android:id="@+id/rdo_nu"
+                android:text="Nữ"/>
+        </RadioGroup>
+    </LinearLayout>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tiedt_add_sodienthoai"

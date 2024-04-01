@@ -58,7 +58,8 @@ public class Activity_Home extends AppCompatActivity {
 
         if (user.equalsIgnoreCase("admin")) {
             nav_menu.getMenu().findItem(R.id.item_qlnv).setVisible(true);
-            nav_menu.getMenu().findItem(R.id.item_tktop10).setVisible(true);
+            nav_menu.getMenu().findItem(R.id.item_tktop10_nhap).setVisible(true);
+            nav_menu.getMenu().findItem(R.id.item_tktop10_xuat).setVisible(true);
             nav_menu.getMenu().findItem(R.id.item_tkdoanhthu).setVisible(true);
         }
         nav_menu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -78,14 +79,12 @@ public class Activity_Home extends AppCompatActivity {
                 }   else if (item.getItemId() == R.id.item_qlhd) {
                     fragment = new Fragment_QL_HoaDon();
                 }
-//                }  else if (item.getItemId() == R.id.item_qls) {
-//                    fragment = new Frag_QL_Sach();
-//                } else if (item.getItemId() == R.id.item_qltv) {
-//                    fragment = new Frag_QL_Thanh_Vien();
-//                } else if (item.getItemId() == R.id.item_tktop10) {
-//                    fragment = new Frag_TK_Top10();
-//                } else if (item.getItemId() == R.id.item_tkdoanhthu) {
-//                    fragment = new Frag_TK_Doanh_Thu();
+                else if (item.getItemId() == R.id.item_tktop10_nhap) {
+                    fragment = new FragmentTop10Nhap();}
+                else if (item.getItemId() == R.id.item_tktop10_xuat) {
+                    fragment = new FragmentTop10Xuat();}
+                else if (item.getItemId() == R.id.item_tkdoanhthu) {
+                    fragment = new Fragment_DoanhThu();}
 //                }  else if (item.getItemId() == R.id.item_doimk) {
 //                    fragment = new Frag_Doi_Mat_Khau();
 //                } else {
@@ -93,11 +92,11 @@ public class Activity_Home extends AppCompatActivity {
 //
 //                }
 
-            if (fragment != null){
-                getSupportFragmentManager().beginTransaction().replace(R.id.fr_framemain, fragment).commit();
-                getSupportActionBar().setTitle(item.getTitle());
-                drawerLayout.closeDrawer(GravityCompat.START);
-            }
+                if (fragment != null){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fr_framemain, fragment).commit();
+                    getSupportActionBar().setTitle(item.getTitle());
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                }
                 if (item.getItemId() == R.id.item_dangxuat) {
                     showLogoutDialog();
                 }

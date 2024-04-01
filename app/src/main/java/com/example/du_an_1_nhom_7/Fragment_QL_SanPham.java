@@ -63,7 +63,7 @@ public class Fragment_QL_SanPham extends Fragment {
         rc_sp = view.findViewById(R.id.rc_san_pham);
         fab_them_sanpham = view.findViewById(R.id.fab_san_pham);
 
-       capNhatLV();
+        capNhatLV();
 
         fab_them_sanpham.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,24 +97,24 @@ public class Fragment_QL_SanPham extends Fragment {
 
 
 
-            //cho danh sách lên spinner
-            list_lh=new ArrayList<>();
-            lhdao=new LoaiHangDAO(getContext());
-            list_lh= (ArrayList<LoaiHangDTO>) lhdao.getAll();
-            spnadt=new Spinner_LoaiHang_Adapter(getContext(),list_lh);
-            spn_add_SP.setAdapter(spnadt);
-            spn_add_SP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    maloaihang=list_lh.get(position).getMa_loai_hang();
-                    Toast.makeText(getContext(), "Chọn "+list_lh.get(position).getTen_loai_hang(), Toast.LENGTH_SHORT).show();
-                }
+        //cho danh sách lên spinner
+        list_lh=new ArrayList<>();
+        lhdao=new LoaiHangDAO(getContext());
+        list_lh= (ArrayList<LoaiHangDTO>) lhdao.getAll();
+        spnadt=new Spinner_LoaiHang_Adapter(getContext(),list_lh);
+        spn_add_SP.setAdapter(spnadt);
+        spn_add_SP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                maloaihang=list_lh.get(position).getMa_loai_hang();
+                Toast.makeText(getContext(), "Chọn "+list_lh.get(position).getTen_loai_hang(), Toast.LENGTH_SHORT).show();
+            }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-                }
-            });
+            }
+        });
 
 
         btn_huy_addSP.setOnClickListener(new View.OnClickListener() {
@@ -138,14 +138,14 @@ public class Fragment_QL_SanPham extends Fragment {
                     sp.setDon_gia(Integer.parseInt(tiedt_add_donGia.getText().toString()));
                     sp.setSo_luong(Integer.parseInt(tiedt_add_soLuong.getText().toString()));
 
-                           if(sanPhamDAO.insert(sp)>0){
-                               Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                           }else{
-                               Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
-                           }
+                    if(sanPhamDAO.insert(sp)>0){
+                        Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                    }
 
-                       capNhatLV();
-                       dialog.dismiss();
+                    capNhatLV();
+                    dialog.dismiss();
                 }
             }
         });
@@ -156,37 +156,37 @@ public class Fragment_QL_SanPham extends Fragment {
 
     }
     private int validate(){
-       int check=1;
-       String ten=tiedt_add_tenSP.getText().toString();
-       String hsd=tiedt_add_HSD.getText().toString();
+        int check=1;
+        String ten=tiedt_add_tenSP.getText().toString();
+        String hsd=tiedt_add_HSD.getText().toString();
 
-       String dongiatext=tiedt_add_donGia.getText().toString();
-       String soluongtext=tiedt_add_soLuong.getText().toString();
+        String dongiatext=tiedt_add_donGia.getText().toString();
+        String soluongtext=tiedt_add_soLuong.getText().toString();
 
-       if(ten.isEmpty()){
-           tiedt_add_tenSP.setError("Vui lòng nhập tên sản phẩm");
-           check=-1;
-       }else if(hsd.isEmpty()){
-           tiedt_add_HSD.setError("Vui lòng nhập hạn sử dụng");
-           check=-1;
-       }else if(dongiatext.isEmpty()) {
-           tiedt_add_donGia.setError("Vui lòng nhập đơn giá");
-           check=-1;
-       }else if(soluongtext.isEmpty()) {
-           tiedt_add_soLuong.setError("Vui lòng nhập số lượng");
-           check=-1;
-       }else{
-           try {
-               int dongia= Integer.parseInt(dongiatext);
-              int soluong=Integer.parseInt(soluongtext);
+        if(ten.isEmpty()){
+            tiedt_add_tenSP.setError("Vui lòng nhập tên sản phẩm");
+            check=-1;
+        }else if(hsd.isEmpty()){
+            tiedt_add_HSD.setError("Vui lòng nhập hạn sử dụng");
+            check=-1;
+        }else if(dongiatext.isEmpty()) {
+            tiedt_add_donGia.setError("Vui lòng nhập đơn giá");
+            check=-1;
+        }else if(soluongtext.isEmpty()) {
+            tiedt_add_soLuong.setError("Vui lòng nhập số lượng");
+            check=-1;
+        }else{
+            try {
+                int dongia= Integer.parseInt(dongiatext);
+                int soluong=Integer.parseInt(soluongtext);
 
 
-           }catch (NumberFormatException e){
-               tiedt_add_donGia.setError("Vui lòng nhập số");
-               tiedt_add_soLuong.setError("Vui lòng nhập số");
+            }catch (NumberFormatException e){
+                tiedt_add_donGia.setError("Vui lòng nhập số");
+                tiedt_add_soLuong.setError("Vui lòng nhập số");
                 check=-1;
-           }
-       }
-       return check;
+            }
+        }
+        return check;
     }
 }
