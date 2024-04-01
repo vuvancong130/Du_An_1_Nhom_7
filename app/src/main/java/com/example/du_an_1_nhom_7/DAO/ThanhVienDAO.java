@@ -71,7 +71,7 @@ public class ThanhVienDAO {
                         c.getString(c.getColumnIndex("sodienThoai")));
                 list.add(obj);
             } while (c.moveToNext());
-            c.close(); // Đóng Cursor sau khi sử dụng
+            c.close();
         }
         return list;
     }
