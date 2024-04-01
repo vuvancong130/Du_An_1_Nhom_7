@@ -29,9 +29,7 @@ public class ThanhVienDAO {
         } else {
             return -1;
         }
-        long result = db.insert("ThanhVien", null, values);
-        db.close();
-        return result;
+        return db.insert("ThanhVien", null, values);
     }
     public int update(ThanhVienDTO thanhVienDTO) {
         ContentValues values = new ContentValues();
