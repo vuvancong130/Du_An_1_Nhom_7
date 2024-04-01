@@ -81,19 +81,19 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.Viewhold
                     public void onClick(DialogInterface dialog, int which) {
                         SanPhamDAO spdao=new SanPhamDAO(context);
 
-                   if(spdao.delete(String.valueOf(sanPhamDTO.getMa_SP()))>0){
-                       Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                        if(spdao.delete(String.valueOf(sanPhamDTO.getMa_SP()))>0){
+                            Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
 
-                       list_SP.remove(sanPhamDTO);
-                       notifyDataSetChanged();
-                       dialog.dismiss();
+                            list_SP.remove(sanPhamDTO);
+                            notifyDataSetChanged();
+                            dialog.dismiss();
 
-                   } else {
-                       Toast.makeText(context, "Xóa thất bại hoặc không có dữ liệu để xóa.", Toast.LENGTH_SHORT).show();
-                       dialog.dismiss();
+                        } else {
+                            Toast.makeText(context, "Xóa thất bại hoặc không có dữ liệu để xóa.", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
 
-                   }
-                   }
+                        }
+                    }
 
                 });
                 builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -136,9 +136,9 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.Viewhold
 
                 int position=0;
                 LoaiHangDAO lhdao=new LoaiHangDAO(context);
-               ArrayList<LoaiHangDTO> list_lh= (ArrayList<LoaiHangDTO>) lhdao.getAll();
-               Spinner_LoaiHang_Adapter spnadt=new Spinner_LoaiHang_Adapter(context,list_lh);
-               spn_add_SP.setAdapter(spnadt);
+                ArrayList<LoaiHangDTO> list_lh= (ArrayList<LoaiHangDTO>) lhdao.getAll();
+                Spinner_LoaiHang_Adapter spnadt=new Spinner_LoaiHang_Adapter(context,list_lh);
+                spn_add_SP.setAdapter(spnadt);
 
                 for(int i=0;i<list_lh.size();i++){
                     if(sanPhamDTO.ma_loai==(list_lh.get(i).getMa_loai_hang())){

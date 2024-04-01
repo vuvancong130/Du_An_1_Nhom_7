@@ -41,7 +41,7 @@ public class Spinner_NhanVien_Adapter extends BaseAdapter {
         TextView txt_maNV = convertView.findViewById(R.id.txt_spn_maNV);
         TextView txt_tenNV = convertView.findViewById(R.id.txt_spn_tenNV);
 
-        txt_maNV.setText("Mã NV: "+list.get(position).getMaNV() + " ");
+
         txt_tenNV.setText(list.get(position).getHo_ten());
         return convertView;
     }

@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,8 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.TVie
     ArrayList<ThanhVienDTO> list;
     TextInputEditText tiedt_add_maTV,tiedt_add_tenTV,tiedt_add_namSinh,tiedt_add_gioiTinh,tiedt_add_sodienthoai;
     Button btn_addTV,btn_huy_addTV;
+    RadioGroup rdo_gr;
+    RadioButton rdo_nam,rdo_nu;
 
     public ThanhVienAdapter(Context context, ArrayList<ThanhVienDTO> list){
         this.context = context;
@@ -52,7 +56,12 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.TVie
         holder.txt_maTV.setText("Mã thành viên: " + thanhVienDTO.getMaTV());
         holder.txt_tenTV.setText("Tên thành viên: " + thanhVienDTO.getHo_ten());
         holder.txt_namSinh.setText("Năm sinh: " + thanhVienDTO.getNam_sinh());
-        holder.txt_gioiTinh.setText("Giới tính: " + thanhVienDTO.getGioi_tinh());
+
+        if(thanhVienDTO.getGioi_tinh()==0){
+            holder.txt_gioiTinh.setText("Giới tính: Nữ");
+        }else{
+            holder.txt_gioiTinh.setText("Giới tính: Nam");
+        }
         holder.txt_sodienThoai.setText("Số điện thoại: " + thanhVienDTO.getSo_dien_thoai());
 
         holder.imgbnt_deleteTV.setOnClickListener(new View.OnClickListener() {
@@ -100,10 +109,13 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.TVie
                 builder.setView(view);
                 Dialog dialog = builder.create();
 
+
                 tiedt_add_maTV = view.findViewById(R.id.tiedt_add_maTV);
                 tiedt_add_tenTV = view.findViewById(R.id.tiedt_add_tenTV);
                 tiedt_add_namSinh = view.findViewById(R.id.tiedt_add_namSinh);
-                tiedt_add_gioiTinh = view.findViewById(R.id.tiedt_add_gioiTinh);
+                rdo_gr=view.findViewById(R.id.rdo_gr_tv);
+                rdo_nam=view.findViewById(R.id.rdo_nam);
+                rdo_nu=view.findViewById(R.id.rdo_nu);
                 tiedt_add_sodienthoai = view.findViewById(R.id.tiedt_add_sodienthoai);
                 btn_addTV = view.findViewById(R.id.btn_addTV);
                 btn_huy_addTV = view.findViewById(R.id.btn_huy_addTV);
@@ -111,7 +123,15 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.TVie
                 tiedt_add_maTV.setText(String.valueOf(list.get(position).getMaTV()));
                 tiedt_add_tenTV.setText(list.get(position).getHo_ten());
                 tiedt_add_namSinh.setText(list.get(position).getNam_sinh());
-                tiedt_add_gioiTinh.setText(list.get(position).getGioi_tinh());
+
+
+                if(list.get(position).getGioi_tinh()==0){
+                    rdo_nu.setChecked(true);
+                }else if(list.get(position).getGioi_tinh()==1){
+                    rdo_nam.setChecked(true);
+
+                }
+
                 tiedt_add_sodienthoai.setText(list.get(position).getSo_dien_thoai());
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
@@ -128,11 +148,17 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.TVie
                     public void onClick(View v) {
                         String tenTV = tiedt_add_tenTV.getText().toString();
                         String NS = tiedt_add_namSinh.getText().toString();
-                        String GT = tiedt_add_gioiTinh.getText().toString();
                         String SDT = tiedt_add_sodienthoai.getText().toString();
                         thanhVienDTO.setHo_ten(tenTV);
                         thanhVienDTO.setNam_sinh(NS);
-                        thanhVienDTO.setGioi_tinh(GT);
+
+                        if(rdo_nam.isChecked()){
+                            thanhVienDTO.setGioi_tinh(1);
+                        }else if(rdo_nu.isChecked()){
+                            thanhVienDTO.setGioi_tinh(0);
+                        }
+
+
                         thanhVienDTO.setSo_dien_thoai(SDT);
                         boolean err = false;
                         if (tenTV.isEmpty()) {
@@ -143,10 +169,7 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.TVie
                             tiedt_add_namSinh.setError("Vui lòng nhập năm sinh thành viên!");
                             err = true;
                         }
-                        if (GT.isEmpty()) {
-                            tiedt_add_gioiTinh.setError("Vui lòng nhập giới tính thành viên!");
-                            err = true;
-                        }
+
                         if (SDT.isEmpty()) {
                             tiedt_add_sodienthoai.setError("Vui lòng nhập số điện thoại thành viên!");
                             err = true;

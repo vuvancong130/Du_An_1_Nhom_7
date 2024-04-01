@@ -40,7 +40,7 @@ public class Spinner_ThanhVien_Adapter extends BaseAdapter {
         TextView txt_maTV = convertView.findViewById(R.id.txt_maTV);
         TextView txt_tenTV = convertView.findViewById(R.id.txt_tenTV);
 
-        txt_maTV.setText("Mã TV: "+listTV.get(position).getMaTV() + " ");
+        txt_maTV.setText(listTV.get(position).getMaTV() + " ");
         txt_tenTV.setText(listTV.get(position).getHo_ten());
         return convertView;
     }
