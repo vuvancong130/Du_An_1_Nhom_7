@@ -165,211 +165,248 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(context);
-                LayoutInflater inf=((Activity)context).getLayoutInflater();
-                View view=inf.inflate(R.layout.dialog_hoa_don,null);
-                builder.setView(view);
-                Dialog dialog=builder.create();
+                if(hoaDonDTO.getTrangThai()==1){
+                    Toast.makeText(context, "Hóa đơn đã được duyệt không thể sửa", Toast.LENGTH_SHORT).show();
+                }else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    LayoutInflater inf = ((Activity) context).getLayoutInflater();
+                    View view = inf.inflate(R.layout.dialog_hoa_don, null);
+                    builder.setView(view);
+                    Dialog dialog = builder.create();
 
-                tiedt_add_maHD = view.findViewById(R.id.tiedt_add_maHD);
-                Spinner sp_lh_addNV = view.findViewById(R.id.sp_lh_addNV);
+                    tiedt_add_maHD = view.findViewById(R.id.tiedt_add_maHD);
+                    Spinner sp_lh_addNV = view.findViewById(R.id.sp_lh_addNV);
 
-                txt_tinhtongtien=view.findViewById(R.id.txt_tinhtongtien);
-                Spinner sp_lh_addTV = view.findViewById(R.id.sp_lh_addTV);
-                Spinner  sp_lh_addSP = view.findViewById(R.id.sp_lh_addSP);
-                tiedt_add_SoLuong = view.findViewById(R.id.tiedt_add_soLuong_hd);
-                tiedt_add_DonGia = view.findViewById(R.id.tiedt_add_DonGia_hd);
-                rd_gr2=view.findViewById(R.id.rd_gr2);
-                rdo_duyet=view.findViewById(R.id.rd_duyet);
-                rdo_cduyet=view.findViewById(R.id.rd_cduyet);
-                rd_nhap = view.findViewById(R.id.rd_nhap);
-                rd_xuat = view.findViewById(R.id.rd_xuat);
-                tiedt_add_ngayXuat = view.findViewById(R.id.tiedt_add_ngayXuat);
-                radioGroup = view.findViewById(R.id.rd_gr);
-                btn_addHD = view.findViewById(R.id.btn_addHD);
-                btn_huy_addHD = view.findViewById(R.id.btn_huy_addHD);
-
-
-                tiedt_add_maHD.setEnabled(false);
-
-
-
-                tiedt_add_maHD.setText(String.valueOf(list_HD.get(position).getMaHD()));
-                tiedt_add_DonGia.setText(String.valueOf(list_HD.get(position).getDonGia()));
-                tiedt_add_ngayXuat.setText(list_HD.get(position).getNgayXuat());
-                tiedt_add_SoLuong.setText(String.valueOf(list_HD.get(position).getSoLuong()));
+                    txt_tinhtongtien = view.findViewById(R.id.txt_tinhtongtien);
+                    Spinner sp_lh_addTV = view.findViewById(R.id.sp_lh_addTV);
+                    Spinner sp_lh_addSP = view.findViewById(R.id.sp_lh_addSP);
+                    tiedt_add_SoLuong = view.findViewById(R.id.tiedt_add_soLuong_hd);
+                    tiedt_add_DonGia = view.findViewById(R.id.tiedt_add_DonGia_hd);
+                    rd_gr2 = view.findViewById(R.id.rd_gr2);
+                    rdo_duyet = view.findViewById(R.id.rd_duyet);
+                    rdo_cduyet = view.findViewById(R.id.rd_cduyet);
+                    rd_nhap = view.findViewById(R.id.rd_nhap);
+                    rd_xuat = view.findViewById(R.id.rd_xuat);
+                    tiedt_add_ngayXuat = view.findViewById(R.id.tiedt_add_ngayXuat);
+                    radioGroup = view.findViewById(R.id.rd_gr);
+                    btn_addHD = view.findViewById(R.id.btn_addHD);
+                    btn_huy_addHD = view.findViewById(R.id.btn_huy_addHD);
 
 
-                if(list_HD.get(position).getNhap_xuat()==0){
-                    rd_nhap.setChecked(true);
-                }else if(list_HD.get(position).getNhap_xuat()==1){
-                    rd_xuat.setChecked(true);
-                }
-
-                if(list_HD.get(position).getTrangThai()==0){
-                    rdo_cduyet.setChecked(true);
-                }else if(list_HD.get(position).getTrangThai()==1){
-                    rdo_duyet.setChecked(true);
-                }
+                    tiedt_add_maHD.setEnabled(false);
 
 
+                    tiedt_add_maHD.setText(String.valueOf(list_HD.get(position).getMaHD()));
+                    tiedt_add_DonGia.setText(String.valueOf(list_HD.get(position).getDonGia()));
+                    tiedt_add_ngayXuat.setText(list_HD.get(position).getNgayXuat());
+                    tiedt_add_SoLuong.setText(String.valueOf(list_HD.get(position).getSoLuong()));
 
 
-
-                NhanVienDAO nhanVienDAO = new NhanVienDAO(context);
-                ArrayList<NhanVienDTO> list_nv = (ArrayList<NhanVienDTO>) nhanVienDAO.getAll();
-                Spinner_NhanVien_Adapter spinnerNhanVienAdapter = new Spinner_NhanVien_Adapter(context,list_nv);
-                sp_lh_addNV.setAdapter(spinnerNhanVienAdapter);
-
-                int positionNV=0;
-                for(int i=0;i<list_nv.size();i++){
-                    if(hoaDonDTO.getMaNV()==(list_nv.get(i).getMaNV())){
-                        positionNV=i;
-
-                    }
-                    sp_lh_addNV.setSelection(positionNV);
-                }
-
-
-                sp_lh_addNV.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        mNV = list_nv.get(position).getMaNV();
-                        Toast.makeText(context,"Chọn " + list_nv.get(position).getHo_ten(),Toast.LENGTH_SHORT).show();
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-                    }
-                });
-
-
-                ThanhVienDAO thanhVienDAO = new ThanhVienDAO(context);
-                ArrayList<ThanhVienDTO> list_tv = (ArrayList<ThanhVienDTO>) thanhVienDAO.getAll();
-                Spinner_ThanhVien_Adapter spinnerThanhVienAdapter = new Spinner_ThanhVien_Adapter(context,list_tv);
-                sp_lh_addTV.setAdapter(spinnerThanhVienAdapter);
-
-                int positionTV=0;
-                for(int i=0;i<list_tv.size();i++){
-                    if(hoaDonDTO.getMaTV()==(list_tv.get(i).getMaTV())){
-                        positionTV=i;
-
-                    }
-                    sp_lh_addTV.setSelection(positionTV);
-                }
-
-
-                sp_lh_addTV.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        mTV = list_tv.get(position).getMaTV();
-                        Toast.makeText(context,"Chọn " + list_tv.get(position).getHo_ten(),Toast.LENGTH_SHORT).show();
+                    if (list_HD.get(position).getNhap_xuat() == 0) {
+                        rd_nhap.setChecked(true);
+                    } else if (list_HD.get(position).getNhap_xuat() == 1) {
+                        rd_xuat.setChecked(true);
                     }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-
-                SanPhamDAO sanPhamDAO = new SanPhamDAO(context);
-                ArrayList<SanPhamDTO> list_sp = (ArrayList<SanPhamDTO>) sanPhamDAO.getAll();
-                Spinner_SanPham_Adapter spinnerSanPhamAdapter = new Spinner_SanPham_Adapter(context,list_sp);
-                sp_lh_addSP.setAdapter(spinnerSanPhamAdapter);
-
-                int positionSP=0;
-                for(int i=0;i<list_sp.size();i++){
-                    if(hoaDonDTO.getMaSP()==(list_sp.get(i).getMa_SP())){
-                        positionSP=i;
-
-                    }
-                    sp_lh_addSP.setSelection(positionSP);
-
-                }
-
-                sp_lh_addSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        mSP = list_sp.get(position).getMa_SP();
-                        Toast.makeText(context,"Chọn " + list_sp.get(position).getTen_SP(),Toast.LENGTH_SHORT).show();
+                    if (list_HD.get(position).getTrangThai() == 0) {
+                        rdo_cduyet.setChecked(true);
+                    } else if (list_HD.get(position).getTrangThai() == 1) {
+                        rdo_duyet.setChecked(true);
                     }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
 
-                    }
-                });
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+                    NhanVienDAO nhanVienDAO = new NhanVienDAO(context);
+                    ArrayList<NhanVienDTO> list_nv = (ArrayList<NhanVienDTO>) nhanVienDAO.getAll();
+                    Spinner_NhanVien_Adapter spinnerNhanVienAdapter = new Spinner_NhanVien_Adapter(context, list_nv);
+                    sp_lh_addNV.setAdapter(spinnerNhanVienAdapter);
 
-                tiedt_add_DonGia.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View v, boolean hasFocus) {
-                        if(!hasFocus){
-                            tinhtong();
+                    int positionNV = 0;
+                    for (int i = 0; i < list_nv.size(); i++) {
+                        if (hoaDonDTO.getMaNV() == (list_nv.get(i).getMaNV())) {
+                            positionNV = i;
+
                         }
+                        sp_lh_addNV.setSelection(positionNV);
                     }
-                });
-                tiedt_add_SoLuong.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View v, boolean hasFocus) {
-                        if(!hasFocus){
-                            tinhtong();
-                        }
-                    }
-                });
-                btn_huy_addHD.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.cancel();
-                    }
-                });
-                btn_addHD.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        HoaDonDAO hddao=new HoaDonDAO(context);
-                        String ngayxuat=tiedt_add_ngayXuat.getText().toString();
-
-                        hoaDonDTO.setMaNV(mNV);
-                        hoaDonDTO.setMaSP(mSP);
-                        hoaDonDTO.setMaTV(mTV);
-                        hoaDonDTO.setNgayXuat(ngayxuat);
 
 
-                        if(rd_nhap.isChecked()){
-                            hoaDonDTO.setNhap_xuat(0);
-                        }else if(rd_xuat.isChecked()){
-                            hoaDonDTO.setNhap_xuat(1);
+                    sp_lh_addNV.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            mNV = list_nv.get(position).getMaNV();
+                            Toast.makeText(context, "Chọn " + list_nv.get(position).getHo_ten(), Toast.LENGTH_SHORT).show();
                         }
 
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                        }
+                    });
 
-                        if(rdo_duyet.isChecked()){
-                            hoaDonDTO.setTrangThai(1);
-                        }else if(rdo_cduyet.isChecked()){
-                            hoaDonDTO.setTrangThai(0);
+
+                    ThanhVienDAO thanhVienDAO = new ThanhVienDAO(context);
+                    ArrayList<ThanhVienDTO> list_tv = (ArrayList<ThanhVienDTO>) thanhVienDAO.getAll();
+                    Spinner_ThanhVien_Adapter spinnerThanhVienAdapter = new Spinner_ThanhVien_Adapter(context, list_tv);
+                    sp_lh_addTV.setAdapter(spinnerThanhVienAdapter);
+
+                    int positionTV = 0;
+                    for (int i = 0; i < list_tv.size(); i++) {
+                        if (hoaDonDTO.getMaTV() == (list_tv.get(i).getMaTV())) {
+                            positionTV = i;
+
+                        }
+                        sp_lh_addTV.setSelection(positionTV);
+                    }
+
+
+                    sp_lh_addTV.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            mTV = list_tv.get(position).getMaTV();
+                            Toast.makeText(context, "Chọn " + list_tv.get(position).getHo_ten(), Toast.LENGTH_SHORT).show();
                         }
 
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
 
-                        if(validate()>0){
-                            int soluong=Integer.parseInt(tiedt_add_SoLuong.getText().toString());
-                            int dongia=Integer.parseInt(tiedt_add_DonGia.getText().toString());
-                            hoaDonDTO.setDonGia(dongia);
-                            hoaDonDTO.setSoLuong(soluong);
-                            if(hddao.update(hoaDonDTO)>0){
-                                Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
-                                notifyDataSetChanged();
-                                dialog.dismiss();
-                            }else {
-                                Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    SanPhamDAO sanPhamDAO = new SanPhamDAO(context);
+                    ArrayList<SanPhamDTO> list_sp = (ArrayList<SanPhamDTO>) sanPhamDAO.getAll();
+                    Spinner_SanPham_Adapter spinnerSanPhamAdapter = new Spinner_SanPham_Adapter(context, list_sp);
+                    sp_lh_addSP.setAdapter(spinnerSanPhamAdapter);
+
+                    int positionSP = 0;
+                    for (int i = 0; i < list_sp.size(); i++) {
+                        if (hoaDonDTO.getMaSP() == (list_sp.get(i).getMa_SP())) {
+                            positionSP = i;
+
+                        }
+                        sp_lh_addSP.setSelection(positionSP);
+
+                    }
+
+                    sp_lh_addSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            mSP = list_sp.get(position).getMa_SP();
+                            Toast.makeText(context, "Chọn " + list_sp.get(position).getTen_SP(), Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.show();
+
+                    tiedt_add_DonGia.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if (!hasFocus) {
+                                tinhtong();
                             }
                         }
+                    });
+                    tiedt_add_SoLuong.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if (!hasFocus) {
+                                tinhtong();
+                            }
+                        }
+                    });
+                    btn_huy_addHD.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.cancel();
+                        }
+                    });
+                    btn_addHD.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            HoaDonDAO hddao = new HoaDonDAO(context);
+                            String ngayxuat = tiedt_add_ngayXuat.getText().toString();
 
-                    }
-                });
+                            hoaDonDTO.setMaNV(mNV);
+                            hoaDonDTO.setMaSP(mSP);
+                            hoaDonDTO.setMaTV(mTV);
+                            hoaDonDTO.setNgayXuat(ngayxuat);
 
 
+                            if (rd_nhap.isChecked()) {
+                                hoaDonDTO.setNhap_xuat(0);
+                            } else if (rd_xuat.isChecked()) {
+                                hoaDonDTO.setNhap_xuat(1);
+                            }
 
-                return false;
-            }
+
+                            if (rdo_duyet.isChecked()) {
+                                hoaDonDTO.setTrangThai(1);
+                            } else if (rdo_cduyet.isChecked()) {
+                                hoaDonDTO.setTrangThai(0);
+                            }
+
+
+                            if (validate() > 0) {
+                                int soluong = Integer.parseInt(tiedt_add_SoLuong.getText().toString());
+                                int dongia = Integer.parseInt(tiedt_add_DonGia.getText().toString());
+
+                                int maSP = list_sp.get(sp_lh_addSP.getSelectedItemPosition()).getMa_SP();
+                                ///////////////////////////////////////////////
+                                if(rd_nhap.isChecked()){
+
+                                        int soLuongnhap = Integer.parseInt(tiedt_add_SoLuong.getText().toString());
+                                        SanPhamDTO spdto = sanPhamDAO.getID(String.valueOf(maSP));
+                                        if (spdto != null) {
+                                            int soLuongHienTai = spdto.getSo_luong();
+                                            int soLuongMoi = soLuongHienTai + soLuongnhap;
+                                            if(hddao.update(hoaDonDTO)>0){
+                                                hoaDonDTO.setDonGia(dongia);
+                                                hoaDonDTO.setSoLuong(soluong);
+                                            spdto.setSo_luong(soLuongMoi);
+                                            sanPhamDAO.update(spdto);
+                                            Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+                                            notifyDataSetChanged();
+                                            dialog.dismiss();
+                                            Toast.makeText(context, "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                                        }}
+                                }else if(rd_xuat.isChecked()){
+
+                                        int soLuongxuat = Integer.parseInt(tiedt_add_SoLuong.getText().toString());
+                                        SanPhamDTO spdto = sanPhamDAO.getID(String.valueOf(maSP));
+                                        if (spdto != null) {
+                                            int soLuongHienTai = spdto.getSo_luong();
+                                            int soLuongMoi = soLuongHienTai - soLuongxuat;
+                                            if(soLuongHienTai<soLuongxuat){
+                                                Toast.makeText(context, "Số lượng xuất vượt quá số lượng hiện có của sản phẩm!", Toast.LENGTH_SHORT).show();
+                                            }else{
+                                                if(hddao.update(hoaDonDTO)>0){
+                                                    hoaDonDTO.setDonGia(dongia);
+                                                    hoaDonDTO.setSoLuong(soluong);
+                                            spdto.setSo_luong(soLuongMoi);
+                                            sanPhamDAO.update(spdto);
+                                            Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+                                            notifyDataSetChanged();
+                                            dialog.dismiss();
+                                            Toast.makeText(context, "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                                        }}}
+                                }
+
+                               else {
+                                    Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                        }
+                    });
+
+
+                }
+                    return false;
+                }
+
         });
 
 

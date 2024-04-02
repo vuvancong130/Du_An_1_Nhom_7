@@ -118,6 +118,7 @@ public class Fragment_QL_HoaDon extends Fragment {
         btn_huy_addHD = dialog.findViewById(R.id.btn_huy_addHD);
         tiedt_add_maHD.setEnabled(false);
 
+
         list_nv = new ArrayList<>();
         nhanVienDAO = new NhanVienDAO(getContext());
         list_nv = (ArrayList<NhanVienDTO>) nhanVienDAO.getAll();
@@ -226,12 +227,43 @@ public class Fragment_QL_HoaDon extends Fragment {
                     hdDTO.setSoLuong(Integer.parseInt(tiedt_add_SoLuong.getText().toString()));
                     hdDTO.setDonGia(Integer.parseInt(tiedt_add_DonGia.getText().toString()));
 
+                        int maSP = list_sp.get(sp_lh_addSP.getSelectedItemPosition()).getMa_SP();
+                        if(rdo_duyet.isChecked()) {
+                            if (rd_nhap.isChecked()) {
+                                if(hoaDonDAO.insert(hdDTO)>0){
+                                int soLuongnhap = Integer.parseInt(tiedt_add_SoLuong.getText().toString());
+                                SanPhamDTO spdto = sanPhamDAO.getID(String.valueOf(maSP));
+                                if (spdto != null) {
+                                    int soLuongHienTai = spdto.getSo_luong();
+                                    int soLuongMoi = soLuongHienTai + soLuongnhap;
+                                    spdto.setSo_luong(soLuongMoi);
+                                    sanPhamDAO.update(spdto);
+                                    Toast.makeText(getContext(), "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                                }}
+                            } else if (rd_xuat.isChecked()) {
+                                int soLuongxuat = Integer.parseInt(tiedt_add_SoLuong.getText().toString());
+                                SanPhamDTO spdto = sanPhamDAO.getID(String.valueOf(maSP));
+                                if (spdto != null) {
+                                    int soLuongHienTai = spdto.getSo_luong();
+                                    int soLuongMoi = soLuongHienTai - soLuongxuat;
+                                    if(soLuongHienTai<soLuongxuat){
+                                        Toast.makeText(getContext(), "Số lượng xuất vượt quá số lượng hiện có của sản phẩm!", Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        if(hoaDonDAO.insert(hdDTO)>0){
+                                            spdto.setSo_luong(soLuongMoi);
+                                            sanPhamDAO.update(spdto);
+                                            Toast.makeText(getContext(), "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                            }
+                        }else if(rdo_cduyet.isChecked()){
+                            if(hoaDonDAO.insert(hdDTO)>0){
+                                Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
-                    if(hoaDonDAO.insert(hdDTO)>0){
-                        Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
-                    }
+
 
                     updateLV();
                     dialog.dismiss();

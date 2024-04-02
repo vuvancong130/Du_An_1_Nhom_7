@@ -83,19 +83,40 @@
             android:layout_marginTop="0dp"/>
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tiedt_add_soLuong_hd"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Số lượng"
-        android:padding="16dp" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số lượng: "
+            android:textSize="18dp"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiedt_add_soLuong_hd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập số lượng"
+            android:padding="16dp" />
+    </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tiedt_add_DonGia_hd"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Đơn Giá"
-        android:padding="16dp" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:text="Đơn giá: "/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiedt_add_DonGia_hd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập đơn Giá"
+            android:layout_marginLeft="10dp"
+            android:padding="16dp" />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,7 +129,7 @@
             android:layout_marginTop="10dp"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:layout_marginLeft="10dp"/>
+           />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -118,12 +139,23 @@
             android:textStyle="bold"
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tiedt_add_ngayXuat"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Ngày xuất"
-        android:padding="16dp" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày: "
+            android:textSize="18dp"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiedt_add_ngayXuat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ngày xuất"
+            android:layout_marginLeft="30dp"
+            android:padding="16dp" />
+    </LinearLayout>
 
 
     <TextView

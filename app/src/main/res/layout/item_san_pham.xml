@@ -50,13 +50,14 @@
             android:id="@+id/txt_DonGia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="đơn giá: "
+            android:text="Đơn giá: "
             android:textSize="16dp" />
         <TextView
             android:id="@+id/txt_SoLuong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="số lượng: "
+            android:text="Số lượng: "
+            android:textStyle="bold"
             android:textSize="16dp" />
     </LinearLayout>
 

@@ -38,7 +38,7 @@ public class Spinner_NhanVien_Adapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = View.inflate(parent.getContext(), R.layout.spinner_nhan_vien, null);
-        TextView txt_maNV = convertView.findViewById(R.id.txt_spn_maNV);
+
         TextView txt_tenNV = convertView.findViewById(R.id.txt_spn_tenNV);
 
 
