@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class MyDbhelper extends SQLiteOpenHelper {
     public MyDbhelper(Context context) {
-        super(context, "QLKhoHang", null, 11);
+        super(context, "QLKhoHang", null, 12);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class MyDbhelper extends SQLiteOpenHelper {
 
         String tb_ThanhVien = "CREATE TABLE ThanhVien (maTV INTEGER PRIMARY KEY AUTOINCREMENT , hoTen TEXT NOT NULL , namSinh TEXT NOT NULL , gioiTinh integer  NOT NULL , sodienThoai TEXT NOT NULL);";
         db.execSQL(tb_ThanhVien);
-        String insert_ThanhVien = "INSERT INTO ThanhVien (hoTen,namSinh,gioiTinh,sodienThoai) VALUES ('c','1994',1,'0976336726'), ('Tran Minh T','1999',1,'0264532963'), ('Pham Thuy K','2001',0,'0342998678'), ('Kieu Minh A','1987',1,'0364723456');";
+        String insert_ThanhVien = "INSERT INTO ThanhVien (hoTen,namSinh,gioiTinh,sodienThoai) VALUES ('Cao Văn C','1994',1,'0976336726'), ('Tran Minh T','1999',1,'0264532963'), ('Pham Thuy K','2001',0,'0342998678'), ('Kieu Minh A','1987',1,'0364723456');";
         db.execSQL(insert_ThanhVien);
 
         String tb_LoaiHang = "CREATE TABLE LoaiHang (maLH INTEGER PRIMARY KEY AUTOINCREMENT , tenLH TEXT NOT NULL , thue TEXT NOT NULL);";
@@ -30,7 +30,7 @@ public class MyDbhelper extends SQLiteOpenHelper {
 
         String tb_SanPham = "CREATE TABLE SanPham (maSP INTEGER PRIMARY KEY AUTOINCREMENT , tenSP TEXT NOT NULL , maLH INTEGER REFERENCES LoaiHang (maLH), HSD TEXT NOT NULL, donGia INTEGER NOT NULL, soLuong INTEGER NOT NULL);";
         db.execSQL(tb_SanPham);
-        String insert_SanPham = "INSERT INTO SanPham (tenSP,maLH,HSD,donGia,soLuong) VALUES ('kẹo milo',2,'12-12-2026',12000,20),('kẹo milo',2,'12-12-2026',12000,20),('kẹo milo',2,'12-12-2026',12000,20),('kẹo milo',2,'12-12-2026',12000,20);";
+        String insert_SanPham = "INSERT INTO SanPham (tenSP,maLH,HSD,donGia,soLuong) VALUES ('kẹo milo',2,'12-12-2026',12000,20),('Bánh gạo ',2,'12-12-2026',12000,20),('Lương khô',2,'12-12-2026',12000,20),('Mứt tết',2,'12-12-2026',12000,20);";
         db.execSQL(insert_SanPham);
 
 
