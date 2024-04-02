@@ -62,18 +62,43 @@ public class NhanVienDAO {
         return getData(sql);
     }
     //get data by id
-    public NhanVienDTO getID(String id) {
+    public NhanVienDTO getID(String maNV) {
         String sql = "SELECT * FROM NhanVien WHERE maNV = ?";
-        List<NhanVienDTO> list = getData(sql, id);
+        List<NhanVienDTO> list = getData(sql, maNV);
         Log.d("zzzz", "getID: " + list.size());
         return list.get(0);
     }
-    public int checkLogin(String id, String password) {
+    public int checkLogin(String maNV, String matKhau) {
         String sql = "SELECT * FROM NhanVien WHERE maNV = ? AND matKhau = ?";
-        List<NhanVienDTO> list = getData(sql, id, password);
+        List<NhanVienDTO> list = getData(sql, maNV, matKhau);
         if (list.size() == 0) {
             return -1;
         }
         return 1;
+    }
+    public int ResetPass (String maNV, String newPass) {
+        ContentValues values = new ContentValues();
+        values.put("matKhau", newPass);
+        return db.update("NhanVien", values, "maNV=?", new String[]{maNV});
+    }
+    public int ResetPassword(String maNV, String sdt, String newPass) {
+        // Kiểm tra xem thông tin username và email có trùng khớp không
+        String checkPass = ForgotPassword(maNV, sdt);
+        if (!checkPass.equals("")) {
+            return ResetPass(maNV, newPass);
+        } else {
+            return 1;
+        }
+    }
+
+    // forgot
+    public String ForgotPassword(String maNV, String sdt) {
+        Cursor c = db.rawQuery("Select matKhau From NhanVien where maNV = ? AND sdt = ?", new String[]{maNV, sdt});
+        if (c.getCount() > 0) {
+            c.moveToFirst();
+            return c.getString(0);
+        } else {
+            return "";
+        }
     }
 }

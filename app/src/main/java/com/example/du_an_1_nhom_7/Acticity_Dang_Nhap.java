@@ -3,11 +3,14 @@ package com.example.du_an_1_nhom_7;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.du_an_1_nhom_7.DAO.NhanVienDAO;
@@ -19,6 +22,7 @@ public class Acticity_Dang_Nhap extends AppCompatActivity {
     Button btn_dangnhap, btn_huydangnhap;
     CheckBox chk_luumk;
     TextInputEditText tiedt_ten_dang_nhap, tiedt_mat_khau;
+    TextView tvforgotpassword;
     NhanVienDAO nhanVienDAO;
     NhanVienDTO nhanVienDTO;
 
@@ -32,6 +36,7 @@ public class Acticity_Dang_Nhap extends AppCompatActivity {
         chk_luumk = findViewById(R.id.chk_luumk);
         tiedt_ten_dang_nhap = findViewById(R.id.tiedt_ten_dang_nhap);
         tiedt_mat_khau = findViewById(R.id.tiedt_mat_khau);
+        tvforgotpassword = findViewById(R.id.tv_ForgotPassword);
         nhanVienDTO = new NhanVienDTO();
         nhanVienDAO = new NhanVienDAO(this);
 
@@ -57,7 +62,12 @@ public class Acticity_Dang_Nhap extends AppCompatActivity {
             }
         });
 
-
+        tvforgotpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShowDialogForgot();
+            }
+        });
     }
 
     public void checkLogin() {
@@ -115,6 +125,39 @@ public class Acticity_Dang_Nhap extends AppCompatActivity {
         }
         editor.commit();
 
+    }
+
+    private void ShowDialogForgot(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_xac_nhan, null);
+
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        TextInputEditText id = view.findViewById(R.id.FgId);
+        TextInputEditText sdt = view.findViewById(R.id.FgSdt);
+        Button btn_send = view.findViewById(R.id.btn_add);
+
+        btn_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String idd = id.getText().toString();
+                String sdtt = sdt.getText().toString();
+                String matkhau = nhanVienDAO.ForgotPassword(idd, sdtt);
+
+                if (matkhau.equals("")){
+                    Toast.makeText(Acticity_Dang_Nhap.this,"Tài Khoản Không Tồn Tại :((", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(Acticity_Dang_Nhap.this, Activity_Quen_Mat_Khau.class);
+                    intent.putExtra("id_key", idd);
+                    intent.putExtra("id_matKhau", sdtt);
+                    startActivity(intent);
+                }
+                dialog.dismiss();
+            }
+        });
     }
 
 }
