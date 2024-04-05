@@ -8,11 +8,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -37,9 +40,11 @@ public class Fragment_QL_NhanVien extends Fragment {
     NhanVienAdapter nhanVienAdapter;
     NhanVienDTO nhanVienDTO;
     LinearLayoutManager linearLayoutManager;
+    SearchView searchView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment__q_l__nhan_vien, container, false);
     }
 
@@ -158,5 +163,28 @@ public class Fragment_QL_NhanVien extends Fragment {
         rc_nhan_vien.setLayoutManager(linearLayoutManager);
         nhanVienAdapter = new NhanVienAdapter(getActivity(), list);
         rc_nhan_vien.setAdapter(nhanVienAdapter);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+        searchView = (SearchView) menu.findItem(R.id.search_action).getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setQueryHint("Nhập mã hoặc tên nhân viên");
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                nhanVienAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                nhanVienAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
     }
 }

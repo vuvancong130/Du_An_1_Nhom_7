@@ -1,21 +1,20 @@
 package com.example.du_an_1_nhom_7.Adapter;
 
 import android.app.Activity;
-import java.text.DecimalFormat;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -36,38 +35,38 @@ import com.example.du_an_1_nhom_7.DTO.SanPhamDTO;
 import com.example.du_an_1_nhom_7.DTO.ThanhVienDTO;
 import com.example.du_an_1_nhom_7.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
-public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewholderHoaDon> {
+public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewholderHoaDon> implements Filterable {
 
-    private ArrayList<HoaDonDTO> list_HD;
-    private Context context;
     EditText tiedt_add_maHD, tiedt_add_SoLuong, tiedt_add_DonGia, tiedt_add_ngayXuat;
     RadioGroup rd_gr2, radioGroup;
-    RadioButton rdo_duyet,rdo_cduyet;
+    RadioButton rdo_duyet, rdo_cduyet;
     Button btn_addHD, btn_huy_addHD;
-
     TextView txt_tinhtongtien;
     Spinner sp_lh_addNV, sp_lh_addTV, sp_lh_addSP;
     ArrayList<NhanVienDTO> list_nv;
-
     Spinner_NhanVien_Adapter spinnerNhanVienAdapter;
     ArrayList<ThanhVienDTO> list_tv;
-
     Spinner_ThanhVien_Adapter spinnerThanhVienAdapter;
     ArrayList<SanPhamDTO> list_sp;
-
     Spinner_SanPham_Adapter spinnerSanPhamAdapter;
-    RadioButton rd_nhap,rd_xuat;
+    RadioButton rd_nhap, rd_xuat;
     String mNV;
     int mTV;
     int mSP;
     NhanVienDAO nhanVienDAO;
     SanPhamDAO sanPhamDAO;
     ThanhVienDAO thanhVienDAO;
+    private ArrayList<HoaDonDTO> list_HD;
+    private ArrayList<HoaDonDTO> list_search;
+    private Context context;
 
-    public HoaDonAdapter(ArrayList<HoaDonDTO> list_HD, Context context){
+    public HoaDonAdapter(ArrayList<HoaDonDTO> list_HD, Context context) {
         this.list_HD = list_HD;
+        this.list_search = list_HD;
         this.context = context;
     }
 
@@ -75,8 +74,8 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
     @NonNull
     @Override
     public HoaDonAdapter.ViewholderHoaDon onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View v = inflater.inflate(R.layout.item_hoa_don,parent,false);
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        View v = inflater.inflate(R.layout.item_hoa_don, parent, false);
         ViewholderHoaDon viewholderHoaDon = new ViewholderHoaDon(v);
 
         return viewholderHoaDon;
@@ -92,7 +91,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
         }
 
         nhanVienDAO = new NhanVienDAO(context);
-        NhanVienDTO nhanVienDTO = nhanVienDAO.getID(hoaDonDTO.getMaNV()) ;
+        NhanVienDTO nhanVienDTO = nhanVienDAO.getID(hoaDonDTO.getMaNV());
         holder.txt_maNV.setText("Nhân viên: " + nhanVienDTO.getHo_ten());
 
         thanhVienDAO = new ThanhVienDAO(context);
@@ -107,24 +106,24 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
         holder.txt_donGia.setText("Đơn giá: " + hoaDonDTO.getDonGia() + " ");
         holder.txt_ngayXuat.setText("Ngày : " + hoaDonDTO.getNgayXuat());
 
-        if (hoaDonDTO.getNhap_xuat() == 0){
+        if (hoaDonDTO.getNhap_xuat() == 0) {
             holder.txt_loaiHoaDon.setText("Loại hóa đơn : nhập");
-        } else if (hoaDonDTO.getNhap_xuat() == 1){
+        } else if (hoaDonDTO.getNhap_xuat() == 1) {
             holder.txt_loaiHoaDon.setText("Loại hóa đơn : xuất");
         }
         //
 
-        if(hoaDonDTO.getTrangThai()==0){
+        if (hoaDonDTO.getTrangThai() == 0) {
             holder.txt_trangthai.setText("Đang xử lý");
             holder.txt_trangthai.setTextColor(Color.parseColor("#FF0000"));
-        }else if(hoaDonDTO.getTrangThai()==1){
+        } else if (hoaDonDTO.getTrangThai() == 1) {
             holder.txt_trangthai.setText("Đã hoàn thành");
             holder.txt_trangthai.setTextColor(Color.parseColor("#00FF00"));
 
         }
-        int tong= holder.tinhtong(hoaDonDTO.getSoLuong(),hoaDonDTO.getDonGia());
-        String forramat=dinhdang(tong);
-        holder.txt_tongtien.setText("Tổng tiền: "+forramat);
+        int tong = holder.tinhtong(hoaDonDTO.getSoLuong(), hoaDonDTO.getDonGia());
+        String forramat = dinhdang(tong);
+        holder.txt_tongtien.setText("Tổng tiền: " + forramat);
 
         holder.imgbtn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,13 +138,13 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
                     public void onClick(DialogInterface dialog, int which) {
                         HoaDonDAO hoaDonDAO = new HoaDonDAO(context);
 
-                        if (hoaDonDAO.delete(String.valueOf(hoaDonDTO.getMaHD())) > 0){
-                            Toast.makeText(context,"Xoá thành công", Toast.LENGTH_SHORT).show();
+                        if (hoaDonDAO.delete(String.valueOf(hoaDonDTO.getMaHD())) > 0) {
+                            Toast.makeText(context, "Xoá thành công", Toast.LENGTH_SHORT).show();
                             list_HD.remove(hoaDonDTO);
                             notifyDataSetChanged();
                             dialog.dismiss();
                         } else {
-                            Toast.makeText(context,"Xóa thât bại, không có dữ liệu để xóa", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Xóa thât bại, không có dữ liệu để xóa", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }
                     }
@@ -165,9 +164,22 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if(hoaDonDTO.getTrangThai()==1){
-                    Toast.makeText(context, "Hóa đơn đã được duyệt không thể sửa", Toast.LENGTH_SHORT).show();
-                }else {
+                if (hoaDonDTO.getTrangThai() == 1) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Thông Báo");
+                    builder.setMessage("Bạn không thể sửa hoá dơn khi đã hoàn thành!");
+                    builder.setCancelable(true);
+
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+
+                } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     LayoutInflater inf = ((Activity) context).getLayoutInflater();
                     View view = inf.inflate(R.layout.dialog_hoa_don, null);
@@ -355,46 +367,47 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
 
                                 int maSP = list_sp.get(sp_lh_addSP.getSelectedItemPosition()).getMa_SP();
                                 ///////////////////////////////////////////////
-                                if(rd_nhap.isChecked()){
+                                if (rd_nhap.isChecked()) {
 
-                                        int soLuongnhap = Integer.parseInt(tiedt_add_SoLuong.getText().toString());
-                                        SanPhamDTO spdto = sanPhamDAO.getID(String.valueOf(maSP));
-                                        if (spdto != null) {
-                                            int soLuongHienTai = spdto.getSo_luong();
-                                            int soLuongMoi = soLuongHienTai + soLuongnhap;
-                                            if(hddao.update(hoaDonDTO)>0){
+                                    int soLuongnhap = Integer.parseInt(tiedt_add_SoLuong.getText().toString());
+                                    SanPhamDTO spdto = sanPhamDAO.getID(String.valueOf(maSP));
+                                    if (spdto != null) {
+                                        int soLuongHienTai = spdto.getSo_luong();
+                                        int soLuongMoi = soLuongHienTai + soLuongnhap;
+                                        if (hddao.update(hoaDonDTO) > 0) {
+                                            hoaDonDTO.setDonGia(dongia);
+                                            hoaDonDTO.setSoLuong(soluong);
+                                            spdto.setSo_luong(soLuongMoi);
+                                            sanPhamDAO.update(spdto);
+                                            Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+                                            notifyDataSetChanged();
+                                            dialog.dismiss();
+                                            Toast.makeText(context, "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                } else if (rd_xuat.isChecked()) {
+
+                                    int soLuongxuat = Integer.parseInt(tiedt_add_SoLuong.getText().toString());
+                                    SanPhamDTO spdto = sanPhamDAO.getID(String.valueOf(maSP));
+                                    if (spdto != null) {
+                                        int soLuongHienTai = spdto.getSo_luong();
+                                        int soLuongMoi = soLuongHienTai - soLuongxuat;
+                                        if (soLuongHienTai < soLuongxuat) {
+                                            Toast.makeText(context, "Số lượng xuất vượt quá số lượng hiện có của sản phẩm!", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            if (hddao.update(hoaDonDTO) > 0) {
                                                 hoaDonDTO.setDonGia(dongia);
                                                 hoaDonDTO.setSoLuong(soluong);
-                                            spdto.setSo_luong(soLuongMoi);
-                                            sanPhamDAO.update(spdto);
-                                            Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
-                                            notifyDataSetChanged();
-                                            dialog.dismiss();
-                                            Toast.makeText(context, "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
-                                        }}
-                                }else if(rd_xuat.isChecked()){
-
-                                        int soLuongxuat = Integer.parseInt(tiedt_add_SoLuong.getText().toString());
-                                        SanPhamDTO spdto = sanPhamDAO.getID(String.valueOf(maSP));
-                                        if (spdto != null) {
-                                            int soLuongHienTai = spdto.getSo_luong();
-                                            int soLuongMoi = soLuongHienTai - soLuongxuat;
-                                            if(soLuongHienTai<soLuongxuat){
-                                                Toast.makeText(context, "Số lượng xuất vượt quá số lượng hiện có của sản phẩm!", Toast.LENGTH_SHORT).show();
-                                            }else{
-                                                if(hddao.update(hoaDonDTO)>0){
-                                                    hoaDonDTO.setDonGia(dongia);
-                                                    hoaDonDTO.setSoLuong(soluong);
-                                            spdto.setSo_luong(soLuongMoi);
-                                            sanPhamDAO.update(spdto);
-                                            Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
-                                            notifyDataSetChanged();
-                                            dialog.dismiss();
-                                            Toast.makeText(context, "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
-                                        }}}
-                                }
-
-                               else {
+                                                spdto.setSo_luong(soLuongMoi);
+                                                sanPhamDAO.update(spdto);
+                                                Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+                                                notifyDataSetChanged();
+                                                dialog.dismiss();
+                                                Toast.makeText(context, "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }
+                                } else {
                                     Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -404,8 +417,8 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
 
 
                 }
-                    return false;
-                }
+                return false;
+            }
 
         });
 
@@ -417,33 +430,50 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
         return list_HD.size();
     }
 
-    public class ViewholderHoaDon extends RecyclerView.ViewHolder {
-        TextView txt_maHD, txt_maNV, txt_maTV, txt_maSP, txt_soLuong, txt_donGia, txt_ngayXuat, txt_loaiHoaDon,txt_trangthai,  txt_tongtien;
-        ImageButton imgbtn_delete;
-        HoaDonDAO hoaDonDAO;
-        public ViewholderHoaDon(@NonNull View itemView) {
-            super(itemView);
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String strSearch = charSequence.toString();
+                if (strSearch.isEmpty()) {
+                    list_HD = list_search;
+                } else {
+                    List<HoaDonDTO> list = new ArrayList<HoaDonDTO>() {
+                    };
+                    for (HoaDonDTO hoaDonDTO : list_HD) {
+                        if (hoaDonDTO.getMaNV().toLowerCase().contains(strSearch.toLowerCase())) {
+                            list.add(hoaDonDTO);
+                        }
 
-            txt_tongtien =itemView.findViewById(R.id.txt_tongTien);
-            txt_maHD = itemView.findViewById(R.id.txt_maHD);
-            txt_maNV = itemView.findViewById(R.id.txt_maNV);
-            txt_maTV = itemView.findViewById(R.id.txt_maTV);
-            txt_maSP = itemView.findViewById(R.id.txt_maSP);
-            txt_soLuong = itemView.findViewById(R.id.txt_soLuong);
-            txt_donGia = itemView.findViewById(R.id.txt_donGia);
-            txt_ngayXuat = itemView.findViewById(R.id.txt_ngayXuat);
-            txt_trangthai=itemView.findViewById(R.id.txt_trangthai);
-            txt_loaiHoaDon = itemView.findViewById(R.id.txt_loaiHoaDon);
-            imgbtn_delete = itemView.findViewById(R.id.imgbtn_delete);
+                        try {
+                            int maSPSearch = Integer.parseInt(strSearch);
+                            if (hoaDonDTO.getMaHD() == maSPSearch) {
+                                list.add(hoaDonDTO);
+                            }
+                        } catch (NumberFormatException e) {
 
-        }
-        private int tinhtong(int soLuong, int donGia) {
-            return soLuong * donGia;
-        }
+                        }
+                    }
+                    list_HD = (ArrayList<HoaDonDTO>) list;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = list_HD;
+                return filterResults;
 
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                list_HD = (ArrayList<HoaDonDTO>) filterResults.values;
+                notifyDataSetChanged();
+
+            }
+        };
     }
+
     private int validate() {
-        int check=1;
+        int check = 1;
 
         String soluongtext = tiedt_add_SoLuong.getText().toString();
         String dongiatext = tiedt_add_DonGia.getText().toString();
@@ -451,41 +481,71 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
 
         if (dongiatext.length() == 0) {
             tiedt_add_SoLuong.setError("Vui lòng nhập số lượng");
-            check=-1;
+            check = -1;
         } else if (soluongtext.length() == 0) {
             tiedt_add_DonGia.setError("Vui lòng nhập đơn giá");
-            check=-1;
-        }else if (ngayxuattext.length() == 0) {
+            check = -1;
+        } else if (ngayxuattext.length() == 0) {
             tiedt_add_ngayXuat.setError("Vui lòng nhập ngày");
-            check=-1;
+            check = -1;
         } else {
             try {
-                int soluong=Integer.parseInt(soluongtext);
-                int dongia= Integer.parseInt(dongiatext);
+                int soluong = Integer.parseInt(soluongtext);
+                int dongia = Integer.parseInt(dongiatext);
 
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 tiedt_add_SoLuong.setError("Vui lòng nhập số");
                 tiedt_add_DonGia.setError("Vui lòng nhập số");
 
-                check=-1;
+                check = -1;
             }
         }
         return check;
     }
-    private void tinhtong(){
+
+    private void tinhtong() {
         try {
-            int soluong=Integer.parseInt(tiedt_add_SoLuong.getText().toString());
-            int dongia=Integer.parseInt(tiedt_add_DonGia.getText().toString());
-            int tong=soluong*dongia;
-            String format=dinhdang(tong);
+            int soluong = Integer.parseInt(tiedt_add_SoLuong.getText().toString());
+            int dongia = Integer.parseInt(tiedt_add_DonGia.getText().toString());
+            int tong = soluong * dongia;
+            String format = dinhdang(tong);
             txt_tinhtongtien.setText(String.valueOf(format));
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
 
             txt_tinhtongtien.setText("");
         }
     }
+
     public String dinhdang(double number) {
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###.##"); // Định dạng chuỗi với dấu chấm
         return decimalFormat.format(number);
+    }
+
+    public class ViewholderHoaDon extends RecyclerView.ViewHolder {
+        TextView txt_maHD, txt_maNV, txt_maTV, txt_maSP, txt_soLuong, txt_donGia, txt_ngayXuat, txt_loaiHoaDon, txt_trangthai, txt_tongtien;
+        ImageButton imgbtn_delete;
+        HoaDonDAO hoaDonDAO;
+
+        public ViewholderHoaDon(@NonNull View itemView) {
+            super(itemView);
+
+            txt_tongtien = itemView.findViewById(R.id.txt_tongTien);
+            txt_maHD = itemView.findViewById(R.id.txt_maHD);
+            txt_maNV = itemView.findViewById(R.id.txt_maNV);
+            txt_maTV = itemView.findViewById(R.id.txt_maTV);
+            txt_maSP = itemView.findViewById(R.id.txt_maSP);
+            txt_soLuong = itemView.findViewById(R.id.txt_soLuong);
+            txt_donGia = itemView.findViewById(R.id.txt_donGia);
+            txt_ngayXuat = itemView.findViewById(R.id.txt_ngayXuat);
+            txt_trangthai = itemView.findViewById(R.id.txt_trangthai);
+            txt_loaiHoaDon = itemView.findViewById(R.id.txt_loaiHoaDon);
+            imgbtn_delete = itemView.findViewById(R.id.imgbtn_delete);
+
+        }
+
+        private int tinhtong(int soLuong, int donGia) {
+            return soLuong * donGia;
+        }
+
     }
 }

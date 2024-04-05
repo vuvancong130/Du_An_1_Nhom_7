@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.du_an_1_nhom_7.DAO.NhanVienDAO;
 import com.example.du_an_1_nhom_7.DAO.ThanhVienDAO;
 import com.example.du_an_1_nhom_7.DTO.NhanVienDTO;
+import com.example.du_an_1_nhom_7.DTO.SanPhamDTO;
 import com.example.du_an_1_nhom_7.DTO.ThanhVienDTO;
 import com.example.du_an_1_nhom_7.Fragment_QL_NhanVien;
 import com.example.du_an_1_nhom_7.Fragment_QL_ThanhVien;
@@ -29,15 +32,18 @@ import com.example.du_an_1_nhom_7.R;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.TViewHolder> {
+public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.TViewHolder> implements Filterable {
     private Context context;
     ArrayList<NhanVienDTO> list;
+    ArrayList<NhanVienDTO> list_search;
     TextInputEditText tiedt_add_maNV,tiedt_add_tenNV,tiedt_add_sodienthoai;
     Button btn_addTV,btn_huy_addTV;
 
     public NhanVienAdapter(Context context, ArrayList<NhanVienDTO> list){
         this.context = context;
+        this.list_search=list;
         this.list = list;
     }
     @NonNull
@@ -159,6 +165,38 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.TViewH
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String strSearch = charSequence.toString();
+                if (strSearch.isEmpty()) {
+                    list = list_search;
+                } else {
+                    List<NhanVienDTO> list_nv = new ArrayList<NhanVienDTO>() {
+                    };
+                    for (NhanVienDTO nhanVienDTO : list) {
+                        if (nhanVienDTO.getHo_ten().toLowerCase().contains(strSearch.toLowerCase()) || nhanVienDTO.getMaNV().toLowerCase().contains(strSearch.toLowerCase())) {
+                            list_nv.add(nhanVienDTO);
+                        }
+                    }
+                    list = (ArrayList<NhanVienDTO>) list_nv;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = list;
+                return filterResults;
+
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                list = (ArrayList<NhanVienDTO>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     class TViewHolder extends RecyclerView.ViewHolder {

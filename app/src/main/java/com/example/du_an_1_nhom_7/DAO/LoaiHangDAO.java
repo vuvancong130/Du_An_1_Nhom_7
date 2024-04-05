@@ -21,14 +21,14 @@ public class LoaiHangDAO {
     public long insert(LoaiHangDTO loaiHangDTO){
         ContentValues values = new ContentValues();
         values.put("tenLH",loaiHangDTO.getTen_loai_hang());
-        values.put("thue",loaiHangDTO.getThue());
+        values.put("moTa",loaiHangDTO.getMoTa());
 
         return db.insert("LoaiHang", null, values);
     }
     public int update(LoaiHangDTO loaiHangDTO){
         ContentValues values = new ContentValues();
         values.put("tenLH",loaiHangDTO.getTen_loai_hang());
-        values.put("thue",loaiHangDTO.getThue());
+        values.put("moTa",loaiHangDTO.getMoTa());
 
         return db.update("LoaiHang", values, "maLH=?", new String[]{String.valueOf(loaiHangDTO.getMa_loai_hang())});
     }
@@ -50,7 +50,7 @@ public class LoaiHangDAO {
         while (c.moveToNext()){
             LoaiHangDTO obj = new LoaiHangDTO(c.getInt(c.getColumnIndex("maLH")),
                     c.getString(c.getColumnIndex("tenLH")),
-                    c.getString(c.getColumnIndex("thue")));
+                    c.getString(c.getColumnIndex("moTa")));
             list.add(obj);
         }
         return list;

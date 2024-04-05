@@ -65,7 +65,7 @@
             android:id="@+id/imgbnt_deleteTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_delete" />
+            android:src="@drawable/baseline_delete_24" />
 
     </LinearLayout>
 
