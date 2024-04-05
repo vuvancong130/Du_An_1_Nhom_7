@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class MyDbhelper extends SQLiteOpenHelper {
     public MyDbhelper(Context context) {
-        super(context, "QLKhoHang", null, 12);
+        super(context, "QLKhoHang", null, 13);
     }
 
     @Override
@@ -23,9 +23,12 @@ public class MyDbhelper extends SQLiteOpenHelper {
         String insert_ThanhVien = "INSERT INTO ThanhVien (hoTen,namSinh,gioiTinh,sodienThoai) VALUES ('Cao Văn C','1994',1,'0976336726'), ('Tran Minh T','1999',1,'0264532963'), ('Pham Thuy K','2001',0,'0342998678'), ('Kieu Minh A','1987',1,'0364723456');";
         db.execSQL(insert_ThanhVien);
 
-        String tb_LoaiHang = "CREATE TABLE LoaiHang (maLH INTEGER PRIMARY KEY AUTOINCREMENT , tenLH TEXT NOT NULL , thue TEXT NOT NULL);";
+        String tb_LoaiHang = "CREATE TABLE LoaiHang (maLH INTEGER PRIMARY KEY AUTOINCREMENT , tenLH TEXT NOT NULL , moTa TEXT NOT NULL);";
         db.execSQL(tb_LoaiHang);
-        String insert_LoaiHang = "INSERT INTO LoaiHang (tenLH,thue) VALUES ('Thưc Phẩm Tươi Sống','0,3%'),('Thực Phẩm Chế Biến Sẵn','0,4%'),('Thực Phẩm Có Đường','0,2%'),('Thực Phẩm Từ Bột & Gạo','0,1%');";
+        String insert_LoaiHang = "INSERT INTO LoaiHang (tenLH,moTa) VALUES ('Thưc Phẩm Tươi Sống','Thực phẩm tươi sống là những loại thực phẩm được thu hoạch, nuôi trồng hoặc chế biến mà không qua bất kỳ quá trình nhiệt độ cao nào. Nhờ vào việc không trải qua các phương pháp chế biến nhiệt độ cao, thực phẩm này giữ nguyên được hàm lượng dưỡng chất và độ tươi ngon của nguyên liệu gốc'),"+
+                            "('Thực Phẩm Chế Biến Sẵn','Thực phẩm chế biến sẵn là những sản phẩm đã trải qua quá trình chế biến từ nguyên liệu tự nhiên thành sản phẩm cuối cùng có thể sử dụng ngay mà không cần chế biến thêm'), "+
+                              "('Thực Phẩm Có Đường','Thực phẩm có đường là nhóm thực phẩm chứa một lượng đường tự nhiên hoặc đường thêm vào để tăng hương vị và độ ngọt'), "+
+                                "('Thực Phẩm Từ Bột & Gạo','Thực phẩm từ bột gạo là các sản phẩm được chế biến từ nguyên liệu chính là gạo, một loại ngũ cốc quen thuộc và phổ biến trên toàn thế giới')";
         db.execSQL(insert_LoaiHang);
 
         String tb_SanPham = "CREATE TABLE SanPham (maSP INTEGER PRIMARY KEY AUTOINCREMENT , tenSP TEXT NOT NULL , maLH INTEGER REFERENCES LoaiHang (maLH), HSD TEXT NOT NULL, donGia INTEGER NOT NULL, soLuong INTEGER NOT NULL);";

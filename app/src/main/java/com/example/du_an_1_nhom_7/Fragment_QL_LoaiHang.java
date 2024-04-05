@@ -8,11 +8,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,12 +39,13 @@ public class Fragment_QL_LoaiHang extends Fragment {
     LoaiHangDAO loaiHangDAO;
     LoaiHangAdapter loaiHangAdapter;
     LoaiHangDTO loaiHangDTO;
-
+    SearchView searchView;
     LinearLayoutManager linearLayoutManager;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment__q_l__loai_hang, container, false);
     }
 
@@ -100,7 +104,7 @@ public class Fragment_QL_LoaiHang extends Fragment {
             public void onClick(View v) {
                 loaiHangDTO = new LoaiHangDTO();
                 loaiHangDTO.setTen_loai_hang(tiedt_add_tenLH.getText().toString());
-                loaiHangDTO.setThue(tiedt_add_thue.getText().toString());
+                loaiHangDTO.setMoTa(tiedt_add_thue.getText().toString());
                 if (validate() > 0) {
                     if (type == 0) {
                         if (loaiHangDAO.insert(loaiHangDTO) > 0) {
@@ -131,7 +135,7 @@ public class Fragment_QL_LoaiHang extends Fragment {
             tiedt_add_tenLH.setError("Vui lòng nhập tên loại hàng!");
             check = -1;
         } else if (thue.isEmpty()) {
-            tiedt_add_thue.setError("Vui lòng nhập thuế!");
+            tiedt_add_thue.setError("Vui lòng nhập mô tả!");
             check = -1;
         }
         return check;
@@ -147,4 +151,27 @@ public class Fragment_QL_LoaiHang extends Fragment {
         loaiHangAdapter = new LoaiHangAdapter(getActivity(), list);
         rc_loai_hang.setAdapter(loaiHangAdapter);
     }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+        searchView = (SearchView) menu.findItem(R.id.search_action).getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setQueryHint("Nhập mã hoặc tên loại hàng");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                loaiHangAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                loaiHangAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+    }
+
 }

@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,20 +22,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.du_an_1_nhom_7.DAO.LoaiHangDAO;
 import com.example.du_an_1_nhom_7.DTO.LoaiHangDTO;
+import com.example.du_an_1_nhom_7.DTO.NhanVienDTO;
+import com.example.du_an_1_nhom_7.DTO.ThanhVienDTO;
 import com.example.du_an_1_nhom_7.Fragment_QL_LoaiHang;
 import com.example.du_an_1_nhom_7.R;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.LSViewHolder> {
+public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.LSViewHolder> implements Filterable {
     Context context;
     ArrayList<LoaiHangDTO> list;
+    ArrayList<LoaiHangDTO> list_search;
 
     TextInputEditText tiedt_add_maLH, tiedt_add_tenLH, tiedt_add_thue;
     Button btn_addLS, btn_huy_addLH;
     public LoaiHangAdapter(Context context, ArrayList<LoaiHangDTO> list) {
         this.context = context;
+        this.list_search=list;
         this.list = list;
     }
 
@@ -50,7 +57,7 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.LSView
         LoaiHangDTO loaiHangDTO = list.get(position);
         holder.txt_maLH.setText("Mã loại hàng: " + loaiHangDTO.getMa_loai_hang());
         holder.txt_tenLH.setText("Tên loại hàng: " + loaiHangDTO.getTen_loai_hang());
-        holder.txt_thue.setText("Thuế: " + loaiHangDTO.getThue());
+        holder.txt_thue.setText("mô tả: " + loaiHangDTO.getMoTa());
 
         holder.imgbnt_deleteLH.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +113,7 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.LSView
 
                 tiedt_add_maLH.setText(String.valueOf(list.get(position).getMa_loai_hang()));
                 tiedt_add_tenLH.setText(list.get(position).getTen_loai_hang());
-                tiedt_add_thue.setText(list.get(position).getThue());
+                tiedt_add_thue.setText(list.get(position).getMoTa());
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
@@ -121,13 +128,13 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.LSView
                     @Override
                     public void onClick(View v) {
                         String tenLS = tiedt_add_tenLH.getText().toString();
-                        String thue = tiedt_add_thue.getText().toString();
+                        String mota = tiedt_add_thue.getText().toString();
                         loaiHangDTO.setTen_loai_hang(tenLS);
-                        loaiHangDTO.setThue(thue);
+                        loaiHangDTO.setMoTa(mota);
                         if (tenLS.isEmpty()) {
                             tiedt_add_tenLH.setError("Vui lòng nhập tên loại hàng!");
-                        } else if (thue.isEmpty()) {
-                            tiedt_add_thue.setError("Vui lòng nhập thuế!");
+                        } else if (mota.isEmpty()) {
+                            tiedt_add_thue.setError("Vui lòng nhập mô tả!");
                         } else {
                             int kq = holder.loaiHangDAO.update(loaiHangDTO);
                             if (kq > 0) {
@@ -152,6 +159,47 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.LSView
     public int getItemCount() {
         return list.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String strSearch = charSequence.toString();
+                if (strSearch.isEmpty()) {
+                    list = list_search;
+                } else {
+                    List<LoaiHangDTO> list_lh = new ArrayList<LoaiHangDTO>() {
+                    };
+                    for (LoaiHangDTO loaiHangDTO : list) {
+                        if (loaiHangDTO.getTen_loai_hang().toLowerCase().contains(strSearch.toLowerCase())) {
+                            list_lh.add(loaiHangDTO);
+                        }
+                        try {
+                            int maSPSearch = Integer.parseInt(strSearch);
+                            if (loaiHangDTO.getMa_loai_hang() == maSPSearch) {
+                                list_lh.add(loaiHangDTO);
+                            }
+                        } catch (NumberFormatException e) {
+
+                        }
+                    }
+                    list = (ArrayList<LoaiHangDTO>) list_lh;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = list;
+                return filterResults;
+
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                list = (ArrayList<LoaiHangDTO>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
     class LSViewHolder extends RecyclerView.ViewHolder {
 
         TextView txt_maLH, txt_tenLH, txt_thue;

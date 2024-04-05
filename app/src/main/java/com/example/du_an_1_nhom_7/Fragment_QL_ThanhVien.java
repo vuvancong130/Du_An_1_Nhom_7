@@ -8,11 +8,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -41,9 +44,12 @@ public class Fragment_QL_ThanhVien extends Fragment {
     ThanhVienAdapter thanhVienAdapter;
     ThanhVienDTO thanhVienDTO;
     LinearLayoutManager linearLayoutManager;
+    SearchView searchView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment__q_l__thanh_vien, container, false);
     }
 
@@ -167,5 +173,29 @@ public class Fragment_QL_ThanhVien extends Fragment {
         rc_thanh_vien.setLayoutManager(linearLayoutManager);
         thanhVienAdapter = new ThanhVienAdapter(getActivity(), list);
         rc_thanh_vien.setAdapter(thanhVienAdapter);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+        searchView = (SearchView) menu.findItem(R.id.search_action).getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setQueryHint("Nhập mã hoặc tên khách hàng");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                thanhVienAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                thanhVienAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+
+
     }
 }

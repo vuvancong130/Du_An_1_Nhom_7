@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -73,11 +76,13 @@ public class Fragment_QL_HoaDon extends Fragment {
     int mSP;
     RadioButton rd_nhap, rd_xuat;
     String nX;
+    SearchView searchView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment__q_l__hoa_don, container, false);
     }
 
@@ -227,10 +232,10 @@ public class Fragment_QL_HoaDon extends Fragment {
                     hdDTO.setSoLuong(Integer.parseInt(tiedt_add_SoLuong.getText().toString()));
                     hdDTO.setDonGia(Integer.parseInt(tiedt_add_DonGia.getText().toString()));
 
-                        int maSP = list_sp.get(sp_lh_addSP.getSelectedItemPosition()).getMa_SP();
-                        if(rdo_duyet.isChecked()) {
-                            if (rd_nhap.isChecked()) {
-                                if(hoaDonDAO.insert(hdDTO)>0){
+                    int maSP = list_sp.get(sp_lh_addSP.getSelectedItemPosition()).getMa_SP();
+                    if(rdo_duyet.isChecked()) {
+                        if (rd_nhap.isChecked()) {
+                            if(hoaDonDAO.insert(hdDTO)>0){
                                 int soLuongnhap = Integer.parseInt(tiedt_add_SoLuong.getText().toString());
                                 SanPhamDTO spdto = sanPhamDAO.getID(String.valueOf(maSP));
                                 if (spdto != null) {
@@ -240,28 +245,28 @@ public class Fragment_QL_HoaDon extends Fragment {
                                     sanPhamDAO.update(spdto);
                                     Toast.makeText(getContext(), "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
                                 }}
-                            } else if (rd_xuat.isChecked()) {
-                                int soLuongxuat = Integer.parseInt(tiedt_add_SoLuong.getText().toString());
-                                SanPhamDTO spdto = sanPhamDAO.getID(String.valueOf(maSP));
-                                if (spdto != null) {
-                                    int soLuongHienTai = spdto.getSo_luong();
-                                    int soLuongMoi = soLuongHienTai - soLuongxuat;
-                                    if(soLuongHienTai<soLuongxuat){
-                                        Toast.makeText(getContext(), "Số lượng xuất vượt quá số lượng hiện có của sản phẩm!", Toast.LENGTH_SHORT).show();
-                                    }else {
-                                        if(hoaDonDAO.insert(hdDTO)>0){
-                                            spdto.setSo_luong(soLuongMoi);
-                                            sanPhamDAO.update(spdto);
-                                            Toast.makeText(getContext(), "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
-                                        }
+                        } else if (rd_xuat.isChecked()) {
+                            int soLuongxuat = Integer.parseInt(tiedt_add_SoLuong.getText().toString());
+                            SanPhamDTO spdto = sanPhamDAO.getID(String.valueOf(maSP));
+                            if (spdto != null) {
+                                int soLuongHienTai = spdto.getSo_luong();
+                                int soLuongMoi = soLuongHienTai - soLuongxuat;
+                                if(soLuongHienTai<soLuongxuat){
+                                    Toast.makeText(getContext(), "Số lượng xuất vượt quá số lượng hiện có của sản phẩm!", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    if(hoaDonDAO.insert(hdDTO)>0){
+                                        spdto.setSo_luong(soLuongMoi);
+                                        sanPhamDAO.update(spdto);
+                                        Toast.makeText(getContext(), "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
-                        }else if(rdo_cduyet.isChecked()){
-                            if(hoaDonDAO.insert(hdDTO)>0){
-                                Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                            }
                         }
+                    }else if(rdo_cduyet.isChecked()){
+                        if(hoaDonDAO.insert(hdDTO)>0){
+                            Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
 
 
@@ -326,5 +331,28 @@ public class Fragment_QL_HoaDon extends Fragment {
     public String dinhdang(double number) {
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###.##"); // Định dạng chuỗi với dấu chấm
         return decimalFormat.format(number);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+        searchView = (SearchView) menu.findItem(R.id.search_action).getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setQueryHint("Nhập mã HĐ hoặc mã NV");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                hoaDonAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                hoaDonAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+
     }
 }
