@@ -101,4 +101,21 @@ public class NhanVienDAO {
             return "";
         }
     }
+    public boolean checkNhanVienIsUsed(Context context,String nhanVienId) {
+        MyDbhelper dbhelper = new MyDbhelper(context);
+        db = dbhelper.getReadableDatabase();
+
+        // Truy vấn kiểm tra xem loại hàng có tồn tại trong bất kỳ sản phẩm nào không
+        String query = "SELECT COUNT(*) FROM HoaDon WHERE maNV = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(nhanVienId)});
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int count = cursor.getInt(0);
+            cursor.close();
+            return count > 0;
+        }
+
+        return false;
+    }
 }

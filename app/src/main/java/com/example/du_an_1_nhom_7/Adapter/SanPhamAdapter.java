@@ -84,6 +84,22 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.Viewhold
                     public void onClick(DialogInterface dialog, int which) {
                         SanPhamDAO spdao = new SanPhamDAO(context);
 
+                        if(spdao.checkSanPhamIsUsed(context,sanPhamDTO.getMa_SP())==true){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle("Thông Báo");
+                            builder.setMessage("Sản phẩm đang được chọn, không thể xóa");
+                            builder.setCancelable(true);
+
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+
+                        }else{
                         if (spdao.delete(String.valueOf(sanPhamDTO.getMa_SP())) > 0) {
                             Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
 
@@ -91,11 +107,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.Viewhold
                             notifyDataSetChanged();
                             dialog.dismiss();
 
-                        } else {
-                            Toast.makeText(context, "Xóa thất bại hoặc không có dữ liệu để xóa.", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-
-                        }
+                        } }
                     }
 
                 });

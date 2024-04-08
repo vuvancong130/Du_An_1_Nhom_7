@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class MyDbhelper extends SQLiteOpenHelper {
     public MyDbhelper(Context context) {
-        super(context, "QLKhoHang", null, 13);
+        super(context, "QLKhoHang", null, 1);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class MyDbhelper extends SQLiteOpenHelper {
 
         String tb_HoaDon = "CREATE TABLE HoaDon (maHD INTEGER PRIMARY KEY AUTOINCREMENT, maNV TEXT REFERENCES NhanVien(maNV), maTV INTEGER REFERENCES ThanhVien(maTV), maSP INTEGER REFERENCES SanPham(maSP), soLuong INTEGER NOT NULL, donGia INTEGER NOT NULL, ngayXuat TEXT NOT NULL, nhap_xuat INTEGER NOT NULL,trangThai integer not null);";
         db.execSQL(tb_HoaDon);
-        String insert_HoaDon = "INSERT INTO HoaDon ( maNV, maTV, maSP, soLuong, donGia, ngayXuat, nhap_xuat,trangThai) VALUES ('NvA',1,1,1000,12000,'1-4-2024',1,0),('NvB',2,2,1000,12000,'1-4-2024',1,1),('NvA',1,2,1000,12000,'1-4-2024',0,1);";
+        String insert_HoaDon = "INSERT INTO HoaDon ( maNV, maTV, maSP, soLuong, donGia, ngayXuat, nhap_xuat,trangThai) VALUES ('NvA',1,1,1000,12000,'01-04-2024',1,0),('NvB',2,2,1000,12000,'01-04-2024',1,1),('NvA',1,2,1000,12000,'01-04-2024',0,1);";
         db.execSQL(insert_HoaDon);
 
     }

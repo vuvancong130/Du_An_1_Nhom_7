@@ -82,5 +82,22 @@ public class SanPhamDAO {
 
         return list;
     }
+    public boolean checkSanPhamIsUsed(Context context,int sanPhamId) {
+        MyDbhelper dbhelper = new MyDbhelper(context);
+        db = dbhelper.getReadableDatabase();
+
+        // Truy vấn kiểm tra xem loại hàng có tồn tại trong bất kỳ sản phẩm nào không
+        String query = "SELECT COUNT(*) FROM HoaDon WHERE maSP = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(sanPhamId)});
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int count = cursor.getInt(0);
+            cursor.close();
+            return count > 0;
+        }
+
+        return false;
+    }
 
 }

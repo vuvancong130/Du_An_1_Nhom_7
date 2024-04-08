@@ -73,6 +73,21 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.TViewH
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         NhanVienDAO nhanVienDAO = new NhanVienDAO(context);
+                        if(nhanVienDAO.checkNhanVienIsUsed(context, nhanVienDTO.getMaNV())==true){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle("Thông Báo");
+                            builder.setMessage("Nhân viên đang được chọn, không thể xóa");
+                            builder.setCancelable(true);
+
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+                        }else{
                         int result = nhanVienDAO.delete(String.valueOf(nhanVienDTO.getMaNV()));
                         if (result > 0) {
                             Toast.makeText(context, "Xóa thành công.", Toast.LENGTH_SHORT).show();
@@ -80,10 +95,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.TViewH
                             notifyDataSetChanged();
                             dialog.dismiss();
 
-                        } else {
-                            Toast.makeText(context, "Xóa thất bại hoặc không có dữ liệu để xóa.", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-
+                        }
                         }
                     }
                 });
