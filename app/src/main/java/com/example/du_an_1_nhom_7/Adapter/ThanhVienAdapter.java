@@ -82,6 +82,23 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.TVie
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ThanhVienDAO thanhVienDAO = new ThanhVienDAO(context);
+                        if(thanhVienDAO.checkThanhVienIsUsed(context,thanhVienDTO.getMaTV())==true){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle("Thông Báo");
+                            builder.setMessage("Khách hàng đang được chọn, không thể xóa");
+                            builder.setCancelable(true);
+
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+
+
+                        }else{
                         int result = thanhVienDAO.delete(String.valueOf(thanhVienDTO.getMaTV()));
                         if (result > 0) {
                             Toast.makeText(context, "Xóa thành công.", Toast.LENGTH_SHORT).show();
@@ -89,11 +106,7 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.TVie
                             notifyDataSetChanged();
                             dialog.dismiss();
 
-                        } else {
-                            Toast.makeText(context, "Xóa thất bại hoặc không có dữ liệu để xóa.", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-
-                        }
+                        } }
                     }
                 });
                 builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {

@@ -76,4 +76,21 @@ public class ThanhVienDAO {
         }
         return list;
     }
+    public boolean checkThanhVienIsUsed(Context context,int thanhVienId) {
+        MyDbhelper dbhelper = new MyDbhelper(context);
+        db = dbhelper.getReadableDatabase();
+
+
+        String query = "SELECT COUNT(*) FROM HoaDon WHERE maTV = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(thanhVienId)});
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int count = cursor.getInt(0);
+            cursor.close();
+            return count > 0;
+        }
+
+        return false;
+    }
 }

@@ -21,14 +21,14 @@
         android:id="@+id/tiedt_add_tenLH"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tên loại hàng"
+        android:hint="Nhập tên loại hàng"
         android:padding="16dp" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tiedt_add_thue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Thuế"
+        android:hint="Nhập mô tả"
         android:padding="16dp" />
 
 

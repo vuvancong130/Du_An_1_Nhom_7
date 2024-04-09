@@ -49,19 +49,32 @@ db=mydb.getWritableDatabase();
         }
         return list;
     }
+//    @SuppressLint("Range")
+//    public int getDoanhthu(String tuNgay, String denNgay){
+//        String sqlDoanhthu="select sum(donGia * soLuong) as doanhThu from HoaDon where trangThai=1 AND nhap_xuat=1 AND ngayXuat between ? and ?";
+//        ArrayList<Integer> list=new ArrayList<>();
+//        Cursor c=db.rawQuery(sqlDoanhthu,new String[]{tuNgay,denNgay});
+//        while(c.moveToNext()){
+//            try{
+//                list.add(Integer.parseInt(String.valueOf(c.getInt(c.getColumnIndex("doanhThu")))));
+//
+//            }catch (Exception e){
+//                list.add(0);
+//            }
+//
+//        }
+//        return list.get(0);
+//    }
     @SuppressLint("Range")
-    public int getDoanhthu(String tuNgay, String denNgay){
-        String sqlDoanhthu="select sum(donGia * soLuong) as doanhThu from HoaDon where nhap_xuat=1 AND ngayXuat between ? and ?";
-        ArrayList<Integer> list=new ArrayList<>();
-        Cursor c=db.rawQuery(sqlDoanhthu,new String[]{tuNgay,denNgay});
-        while(c.moveToNext()){
-            try{
-                list.add(Integer.parseInt(c.getString(c.getColumnIndex("doanhThu"))));
-
-            }catch (Exception e){
-                list.add(0);
-            }
-
+    public int getDoanhthu(String tuNgay, String denNgay) {
+        int doanhThu = 0;
+        String sqlDoanhthu = "SELECT SUM(donGia * soLuong) AS doanhThu FROM HoaDon WHERE trangThai = 1 AND nhap_xuat = 1 AND (ngayXuat BETWEEN ? AND ?)";
+        Cursor c = db.rawQuery(sqlDoanhthu, new String[]{tuNgay, denNgay});
+        if (c.moveToFirst()) {
+            doanhThu = c.getInt(c.getColumnIndex("doanhThu"));
         }
-        return list.get(0);
-    }}
+        c.close();
+        return doanhThu;
+    }
+
+}

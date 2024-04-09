@@ -14,8 +14,10 @@ import java.util.List;
 
 public class LoaiHangDAO {
     private SQLiteDatabase db;
+    MyDbhelper dbhelper;
+
     public LoaiHangDAO(Context context){
-        MyDbhelper dbhelper = new MyDbhelper(context);
+         dbhelper = new MyDbhelper(context);
         db = dbhelper.getWritableDatabase();
     }
     public long insert(LoaiHangDTO loaiHangDTO){
@@ -55,4 +57,22 @@ public class LoaiHangDAO {
         }
         return list;
     }
+    public boolean checkLoaiHangIsUsed(Context context,int loaiHangId) {
+        MyDbhelper dbhelper = new MyDbhelper(context);
+        db = dbhelper.getReadableDatabase();
+
+        // Truy vấn kiểm tra xem loại hàng có tồn tại trong bất kỳ sản phẩm nào không
+        String query = "SELECT COUNT(*) FROM SanPham WHERE maLH = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(loaiHangId)});
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int count = cursor.getInt(0);
+            cursor.close();
+            return count > 0;
+        }
+
+        return false;
+    }
+
 }

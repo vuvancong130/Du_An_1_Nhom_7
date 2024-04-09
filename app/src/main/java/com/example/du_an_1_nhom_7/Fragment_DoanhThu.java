@@ -97,8 +97,5 @@ int mYear,mMonth,mDay;
 
         }
     };
-    public String dinhdang(double number) {
-        DecimalFormat decimalFormat = new DecimalFormat("###,###,###.##");
-        return decimalFormat.format(number);
-    }
+
 }

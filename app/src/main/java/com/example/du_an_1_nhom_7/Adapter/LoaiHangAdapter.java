@@ -38,6 +38,7 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.LSView
 
     TextInputEditText tiedt_add_maLH, tiedt_add_tenLH, tiedt_add_thue;
     Button btn_addLS, btn_huy_addLH;
+    LoaiHangDAO lhdao;
     public LoaiHangAdapter(Context context, ArrayList<LoaiHangDTO> list) {
         this.context = context;
         this.list_search=list;
@@ -57,7 +58,8 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.LSView
         LoaiHangDTO loaiHangDTO = list.get(position);
         holder.txt_maLH.setText("Mã loại hàng: " + loaiHangDTO.getMa_loai_hang());
         holder.txt_tenLH.setText("Tên loại hàng: " + loaiHangDTO.getTen_loai_hang());
-        holder.txt_thue.setText("mô tả: " + loaiHangDTO.getMoTa());
+        holder.txt_thue.setText( loaiHangDTO.getMoTa());
+
 
         holder.imgbnt_deleteLH.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +73,22 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.LSView
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         LoaiHangDAO loaiHangDAO = new LoaiHangDAO(context);
+
+                        if(loaiHangDAO.checkLoaiHangIsUsed(context,loaiHangDTO.getMa_loai_hang())==true){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle("Thông Báo");
+                            builder.setMessage("Loại hàng đang được chọn, không thể xóa");
+                            builder.setCancelable(true);
+
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+                        }else{
                         int result = loaiHangDAO.delete(String.valueOf(loaiHangDTO.getMa_loai_hang()));
                         if (result > 0) {
                             Toast.makeText(context, "Xóa thành công.", Toast.LENGTH_SHORT).show();
@@ -78,10 +96,7 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.LSView
                             notifyDataSetChanged();
                             dialog.dismiss();
 
-                        } else {
-                            Toast.makeText(context, "Xóa thất bại hoặc không có dữ liệu để xóa.", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-
+                        }
                         }
                     }
                 });
