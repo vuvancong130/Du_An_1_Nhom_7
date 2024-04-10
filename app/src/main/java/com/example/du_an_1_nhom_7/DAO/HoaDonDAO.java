@@ -90,4 +90,5 @@ public class HoaDonDAO {
         List<HoaDonDTO> list = getData(sql, id);
         return list.get(0);
     }
+    
 }

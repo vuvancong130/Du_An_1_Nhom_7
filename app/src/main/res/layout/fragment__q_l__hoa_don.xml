@@ -9,12 +9,34 @@
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:orientation="vertical"
-        android:padding="10dp"
-
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_nhap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#786868"
+                android:text="Hóa đơn nhập"/>
+
+
+            <Button
+                android:id="@+id/btn_xuat"
+                android:layout_width="wrap_content"
+                android:backgroundTint="#786868"
+
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
+                android:text="Hóa đơn xuất"/>
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:orientation="vertical"

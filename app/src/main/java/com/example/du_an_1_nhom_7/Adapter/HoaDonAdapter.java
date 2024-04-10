@@ -125,41 +125,46 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
         String forramat = dinhdang(tong);
         holder.txt_tongtien.setText("Tổng tiền: " + forramat);
 
-        holder.imgbtn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Xóa");
-                builder.setMessage("Bạn muốn xóa hóa đơn?");
-                builder.setCancelable(true);
+       if(hoaDonDTO.getTrangThai()==1){
+           holder.imgbtn_delete.setVisibility(View.GONE);
+       }else if(hoaDonDTO.getTrangThai()==0){
+           holder.imgbtn_delete.setVisibility(View.VISIBLE);
+           holder.imgbtn_delete.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                   builder.setTitle("Xóa");
+                   builder.setMessage("Bạn muốn xóa hóa đơn?");
+                   builder.setCancelable(true);
 
-                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        HoaDonDAO hoaDonDAO = new HoaDonDAO(context);
+                   builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialog, int which) {
+                           HoaDonDAO hoaDonDAO = new HoaDonDAO(context);
 
-                        if (hoaDonDAO.delete(String.valueOf(hoaDonDTO.getMaHD())) > 0) {
-                            Toast.makeText(context, "Xoá thành công", Toast.LENGTH_SHORT).show();
-                            list_HD.remove(hoaDonDTO);
-                            notifyDataSetChanged();
-                            dialog.dismiss();
-                        } else {
-                            Toast.makeText(context, "Xóa thât bại, không có dữ liệu để xóa", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                        }
-                    }
-                });
+                           if (hoaDonDAO.delete(String.valueOf(hoaDonDTO.getMaHD())) > 0) {
+                               Toast.makeText(context, "Xoá thành công", Toast.LENGTH_SHORT).show();
+                               list_HD.remove(hoaDonDTO);
+                               notifyDataSetChanged();
+                               dialog.dismiss();
+                           } else {
+                               Toast.makeText(context, "Xóa thât bại, không có dữ liệu để xóa", Toast.LENGTH_SHORT).show();
+                               dialog.dismiss();
+                           }
+                       }
+                   });
 
-                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
-        });
+                   builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialog, int which) {
+                           dialog.cancel();
+                       }
+                   });
+                   AlertDialog alertDialog = builder.create();
+                   alertDialog.show();
+               }
+           });
+       }
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
