@@ -77,6 +77,7 @@ public class Fragment_QL_HoaDon extends Fragment {
     RadioButton rd_nhap, rd_xuat;
     String nX;
     SearchView searchView;
+    Button btn_nhap,btn_xuat,btn_tatca;
 
     @Nullable
     @Override
@@ -92,7 +93,30 @@ public class Fragment_QL_HoaDon extends Fragment {
         rc_hoa_don = view.findViewById(R.id.rc_hoa_don);
         fab_hoa_don = view.findViewById(R.id.fab_hoa_don);
 
+        btn_nhap=view.findViewById(R.id.btn_nhap);
+        btn_xuat=view.findViewById(R.id.btn_xuat);
+
+        btn_nhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hoaDonDAO = new HoaDonDAO(getContext());
+
+                hoaDonAdapter = new HoaDonAdapter(getlist_nhap(),getContext());
+                rc_hoa_don.setAdapter(hoaDonAdapter);
+            }
+        });
+        btn_xuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hoaDonDAO = new HoaDonDAO(getContext());
+
+                hoaDonAdapter = new HoaDonAdapter(getlist_xuat(),getContext());
+                rc_hoa_don.setAdapter(hoaDonAdapter);
+            }
+        });
+
         updateLV();
+
         fab_hoa_don.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -354,5 +378,23 @@ public class Fragment_QL_HoaDon extends Fragment {
             }
         });
 
+    }
+    private ArrayList<HoaDonDTO> getlist_nhap(){
+        ArrayList<HoaDonDTO> list_nhap=new ArrayList<>();
+        for(HoaDonDTO hd : list_hd){
+            if(hd.getNhap_xuat()==0){
+                list_nhap.add(hd);
+            }
+        }
+        return list_nhap;
+    }
+    private ArrayList<HoaDonDTO> getlist_xuat(){
+        ArrayList<HoaDonDTO> list_xuat=new ArrayList<>();
+        for(HoaDonDTO hd : list_hd){
+            if(hd.getNhap_xuat()==1){
+                list_xuat.add(hd);
+            }
+        }
+        return list_xuat;
     }
 }

@@ -70,55 +70,7 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.TVie
         }
         holder.txt_sodienThoai.setText("Số điện thoại: " + thanhVienDTO.getSo_dien_thoai());
 
-        holder.imgbnt_deleteTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Xóa?");
-                builder.setMessage("Bạn có muốn xóa không?");
-                builder.setCancelable(true);
 
-                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ThanhVienDAO thanhVienDAO = new ThanhVienDAO(context);
-                        if(thanhVienDAO.checkThanhVienIsUsed(context,thanhVienDTO.getMaTV())==true){
-                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                            builder.setTitle("Thông Báo");
-                            builder.setMessage("Khách hàng đang được chọn, không thể xóa");
-                            builder.setCancelable(true);
-
-                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                            AlertDialog alertDialog = builder.create();
-                            alertDialog.show();
-
-
-                        }else{
-                        int result = thanhVienDAO.delete(String.valueOf(thanhVienDTO.getMaTV()));
-                        if (result > 0) {
-                            Toast.makeText(context, "Xóa thành công.", Toast.LENGTH_SHORT).show();
-                            list.remove(thanhVienDTO);
-                            notifyDataSetChanged();
-                            dialog.dismiss();
-
-                        } }
-                    }
-                });
-                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
-            }
-        });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -254,7 +206,7 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.TVie
 
     class TViewHolder extends RecyclerView.ViewHolder {
         TextView txt_maTV, txt_tenTV, txt_namSinh, txt_gioiTinh, txt_sodienThoai;
-        ImageButton imgbnt_deleteTV;
+
         ThanhVienDTO thanhVienDTO;
         ThanhVienDAO thanhVienDAO;
         ThanhVienAdapter thanhVienAdapter;
@@ -268,7 +220,7 @@ public class ThanhVienAdapter extends RecyclerView.Adapter<ThanhVienAdapter.TVie
             txt_namSinh = itemView.findViewById(R.id.txt_namSinh);
             txt_gioiTinh = itemView.findViewById(R.id.txt_gioiTinh);
             txt_sodienThoai = itemView.findViewById(R.id.txt_sodienthoai);
-            imgbnt_deleteTV = itemView.findViewById(R.id.imgbnt_deleteTV);
+
 
             thanhVienDTO = new ThanhVienDTO();
             thanhVienDAO = new ThanhVienDAO(context);
