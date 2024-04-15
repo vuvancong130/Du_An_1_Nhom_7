@@ -31,9 +31,9 @@ public class MyDbhelper extends SQLiteOpenHelper {
                                 "('Thực Phẩm Từ Bột & Gạo','Thực phẩm từ bột gạo là các sản phẩm được chế biến từ nguyên liệu chính là gạo, một loại ngũ cốc quen thuộc và phổ biến trên toàn thế giới')";
         db.execSQL(insert_LoaiHang);
 
-        String tb_SanPham = "CREATE TABLE SanPham (maSP INTEGER PRIMARY KEY AUTOINCREMENT , tenSP TEXT NOT NULL , maLH INTEGER REFERENCES LoaiHang (maLH), HSD TEXT NOT NULL, donGia INTEGER NOT NULL, soLuong INTEGER NOT NULL);";
+        String tb_SanPham = "CREATE TABLE SanPham (maSP INTEGER PRIMARY KEY AUTOINCREMENT , tenSP TEXT NOT NULL , maLH INTEGER REFERENCES LoaiHang (maLH), HSD TEXT NOT NULL, donGia INTEGER NOT NULL, soLuong INTEGER NOT NULL,img text not null);";
         db.execSQL(tb_SanPham);
-        String insert_SanPham = "INSERT INTO SanPham (tenSP,maLH,HSD,donGia,soLuong) VALUES ('kẹo milo',2,'12-12-2026',12000,20),('Bánh gạo ',2,'12-12-2026',12000,20),('Lương khô',2,'12-12-2026',12000,20),('Mứt tết',2,'12-12-2026',12000,20);";
+        String insert_SanPham = "INSERT INTO SanPham (tenSP,maLH,HSD,donGia,soLuong,img) VALUES ('kẹo milo',2,'12-12-2026',12000,20,'https://product.hstatic.net/1000304337/product/f58655ca80125e3a87e039da5b0a0553_b6bf731b8506400784de6c6b66495751_1024x1024.jpg'),('Bánh gạo ',2,'12-12-2026',12000,20,'https://cdn.tgdd.vn/Products/Images/3361/83120/banh-gao-nhat-vi-shouyu-mat-ong-ichi-goi-100g-600x600.jpg'),('Lương khô',2,'12-12-2026',12000,20,'https://duchieu.com.vn/profiles/duchieucomvn/uploads/attach/1505450703_tuiluongkho.jpg'),('Mứt tết',2,'12-12-2026',12000,20,'https://cdn.tgdd.vn/2021/01/CookProduct/tong-hop-20-cach-lam-cac-loai-mut-keo-thom-ngon-khong-the-thieu-trong-dip-tet-1-1200x676.jpg');";
         db.execSQL(insert_SanPham);
 
 
@@ -52,6 +52,10 @@ public class MyDbhelper extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS ThanhVien");
             onCreate(db);
             db.execSQL("DROP TABLE IF EXISTS LoaiHang");
+            onCreate(db);
+            db.execSQL("DROP TABLE IF EXISTS SanPham");
+            onCreate(db);
+            db.execSQL("DROP TABLE IF EXISTS HoaDon");
             onCreate(db);
         }
     }

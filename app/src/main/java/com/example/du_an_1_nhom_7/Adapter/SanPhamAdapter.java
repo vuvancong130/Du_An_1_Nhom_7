@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,12 +29,13 @@ import com.example.du_an_1_nhom_7.DAO.SanPhamDAO;
 import com.example.du_an_1_nhom_7.DTO.LoaiHangDTO;
 import com.example.du_an_1_nhom_7.DTO.SanPhamDTO;
 import com.example.du_an_1_nhom_7.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewholderSanPham> implements Filterable{
-    EditText tiedt_add_maSP, tiedt_add_tenSP, tiedt_add_HSD, tiedt_add_donGia, tiedt_add_soLuong;
+    EditText tiedt_add_maSP, tiedt_add_tenSP, tiedt_add_HSD, tiedt_add_donGia, tiedt_add_soLuong,tiedt_add_img;
     Spinner spn_add_SP;
     Button btn_huy_addSP, btn_addSP;
     int maloaihang;
@@ -71,6 +73,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.Viewhold
         holder.txt_DonGia.setText("Đơn Giá: " + sanPhamDTO.getDon_gia() + "");
         holder.txt_SoLuong.setText("Số Lượng: " + sanPhamDTO.getSo_luong() + "");
 
+        Picasso.get().load(sanPhamDTO.img).into(holder.img);
         holder.btn_Delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,6 +141,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.Viewhold
                 tiedt_add_HSD = view.findViewById(R.id.tiedt_add_HSD);
                 tiedt_add_donGia = view.findViewById(R.id.tiedt_add_DonGia);
                 tiedt_add_soLuong = view.findViewById(R.id.tiedt_add_SoLuong);
+                tiedt_add_img=view.findViewById(R.id.tiedt_add_img);
                 btn_addSP = view.findViewById(R.id.btn_addSP);
                 btn_huy_addSP = view.findViewById(R.id.btn_huy_addSP);
 
@@ -147,6 +151,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.Viewhold
                 tiedt_add_donGia.setText(String.valueOf(list_SP.get(position).getDon_gia()));
                 tiedt_add_soLuong.setText(String.valueOf(list_SP.get(position).getSo_luong()));
 
+                tiedt_add_img.setText(list_SP.get(position).getImg());
 
                 int position = 0;
                 LoaiHangDAO lhdao = new LoaiHangDAO(context);
@@ -191,9 +196,11 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.Viewhold
                         String tensp = tiedt_add_tenSP.getText().toString();
                         String hsd = tiedt_add_HSD.getText().toString();
 
+                        String img=tiedt_add_img.getText().toString();
                         sanPhamDTO.setTen_SP(tensp);
                         sanPhamDTO.setHsd(hsd);
                         sanPhamDTO.setMa_loai(maloaihang);
+                        sanPhamDTO.setImg(img);
 
                         if (validate() > 0) {
                             int dongia = Integer.parseInt(tiedt_add_donGia.getText().toString());
@@ -303,11 +310,13 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.Viewhold
     public static class ViewholderSanPham extends RecyclerView.ViewHolder {
         TextView txt_maSP, txt_TenSP, txt_MaLH, txt_HSD, txt_DonGia, txt_SoLuong;
         ImageButton btn_Delete;
+        ImageView img;
         public ViewholderSanPham(@NonNull View itemView) {
             super(itemView);
             txt_maSP = itemView.findViewById(R.id.txt_maSP);
             txt_TenSP = itemView.findViewById(R.id.txt_tenSP);
             txt_MaLH = itemView.findViewById(R.id.txt_maLH);
+            img=itemView.findViewById(R.id.img);
             txt_HSD = itemView.findViewById(R.id.txt_HSD);
             txt_DonGia = itemView.findViewById(R.id.txt_DonGia);
             txt_SoLuong = itemView.findViewById(R.id.txt_SoLuong);
