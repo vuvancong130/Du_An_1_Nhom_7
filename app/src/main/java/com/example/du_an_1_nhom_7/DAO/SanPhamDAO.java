@@ -27,7 +27,7 @@ public class SanPhamDAO {
         values.put("HSD", sanPhamDTO.getHsd());
         values.put("donGia", sanPhamDTO.getDon_gia());
         values.put("soLuong", sanPhamDTO.getSo_luong());
-
+        values.put("img",sanPhamDTO.getImg());
         return db.insert("SanPham", null, values);
 
     }
@@ -39,7 +39,7 @@ public class SanPhamDAO {
         values.put("HSD", sanPhamDTO.getHsd());
         values.put("donGia", sanPhamDTO.getDon_gia());
         values.put("soLuong", sanPhamDTO.getSo_luong());
-
+        values.put("img",sanPhamDTO.getImg());
         return db.update("SanPham", values, "maSP=?", new String[]{String.valueOf(sanPhamDTO.getMa_SP())});
 
     }
@@ -76,7 +76,8 @@ public class SanPhamDAO {
                     c.getInt(c.getColumnIndex("maLH")),
                     c.getString(c.getColumnIndex("HSD")),
                     c.getInt(c.getColumnIndex("donGia")),
-                    c.getInt(c.getColumnIndex("soLuong")));
+                    c.getInt(c.getColumnIndex("soLuong")),
+                    c.getString(c.getColumnIndex("img")));
             list.add(obj);
         }
 

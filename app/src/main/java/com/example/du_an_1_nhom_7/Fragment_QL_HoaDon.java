@@ -4,7 +4,10 @@ import static androidx.constraintlayout.motion.widget.TransitionBuilder.validate
 
 import android.annotation.SuppressLint;
 import java.text.DecimalFormat;
+
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -157,7 +160,7 @@ public class Fragment_QL_HoaDon extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mNV = (list_nv.get(position).getMaNV());
-                Toast.makeText(getContext(),"Chọn" + list_nv.get(position).getHo_ten(),Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -175,7 +178,7 @@ public class Fragment_QL_HoaDon extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mTV = list_tv.get(position).getMaTV();
-                Toast.makeText(getContext(),"Chọn" + list_tv.get(position).getHo_ten(),Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -193,7 +196,7 @@ public class Fragment_QL_HoaDon extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mSP = list_sp.get(position).getMa_SP();
-                Toast.makeText(getContext(),"Chọn" + list_sp.get(position).getTen_SP(),Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -267,7 +270,20 @@ public class Fragment_QL_HoaDon extends Fragment {
                                     int soLuongMoi = soLuongHienTai + soLuongnhap;
                                     spdto.setSo_luong(soLuongMoi);
                                     sanPhamDAO.update(spdto);
-                                    Toast.makeText(getContext(), "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(getContext(), "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                    builder.setTitle("Thông Báo");
+                                    builder.setMessage("Cập nhật số lượng sản phẩm thành công!");
+                                    builder.setCancelable(true);
+
+                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    AlertDialog alertDialog = builder.create();
+                                    alertDialog.show();
                                 }}
                         } else if (rd_xuat.isChecked()) {
                             int soLuongxuat = Integer.parseInt(tiedt_add_SoLuong.getText().toString());
