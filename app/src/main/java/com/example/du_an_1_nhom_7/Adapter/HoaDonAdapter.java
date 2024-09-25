@@ -251,7 +251,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             mNV = list_nv.get(position).getMaNV();
-                            Toast.makeText(context, "Chọn " + list_nv.get(position).getHo_ten(), Toast.LENGTH_SHORT).show();
+
                         }
 
                         @Override
@@ -279,7 +279,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             mTV = list_tv.get(position).getMaTV();
-                            Toast.makeText(context, "Chọn " + list_tv.get(position).getHo_ten(), Toast.LENGTH_SHORT).show();
+
                         }
 
                         @Override
@@ -307,7 +307,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             mSP = list_sp.get(position).getMa_SP();
-                            Toast.makeText(context, "Chọn " + list_sp.get(position).getTen_SP(), Toast.LENGTH_SHORT).show();
+
                         }
 
                         @Override
@@ -387,7 +387,20 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
                                             Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
                                             notifyDataSetChanged();
                                             dialog.dismiss();
-                                            Toast.makeText(context, "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(context, "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                            builder.setTitle("Thông Báo");
+                                            builder.setMessage("Cập nhật số lượng sản phẩm thành công!");
+                                            builder.setCancelable(true);
+
+                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                            AlertDialog alertDialog = builder.create();
+                                            alertDialog.show();
                                         }
                                     }
                                 } else if (rd_xuat.isChecked()) {
@@ -408,7 +421,20 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.Viewholder
                                                 Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
                                                 notifyDataSetChanged();
                                                 dialog.dismiss();
-                                                Toast.makeText(context, "Cập nhật số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
+//                                                Toast.makeText(context, "Cập night số lượng sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                                builder.setTitle("Thông Báo");
+                                                builder.setMessage("Cập nhật số lượng sản phẩm thành công!");
+                                                builder.setCancelable(true);
+
+                                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+                                                AlertDialog alertDialog = builder.create();
+                                                alertDialog.show();
                                             }
                                         }
                                     }

@@ -6,25 +6,28 @@ public class SanPhamDTO {
     public int ma_loai;
     public String hsd;
     public int don_gia,so_luong;
+    public String img;
 
-    public SanPhamDTO(int ma_SP, String ten_SP, int ma_loai, String hsd, int don_gia, int so_luong) {
+    public SanPhamDTO() {
+    }
+
+    public SanPhamDTO(String ten_SP, int ma_loai, String hsd, int don_gia, int so_luong, String img) {
+        this.ten_SP = ten_SP;
+        this.ma_loai = ma_loai;
+        this.hsd = hsd;
+        this.don_gia = don_gia;
+        this.so_luong = so_luong;
+        this.img = img;
+    }
+
+    public SanPhamDTO(int ma_SP, String ten_SP, int ma_loai, String hsd, int don_gia, int so_luong, String img) {
         this.ma_SP = ma_SP;
         this.ten_SP = ten_SP;
         this.ma_loai = ma_loai;
         this.hsd = hsd;
         this.don_gia = don_gia;
         this.so_luong = so_luong;
-    }
-
-    public SanPhamDTO(String ten_SP, int ma_loai, String hsd, int don_gia, int so_luong) {
-        this.ten_SP = ten_SP;
-        this.ma_loai = ma_loai;
-        this.hsd = hsd;
-        this.don_gia = don_gia;
-        this.so_luong = so_luong;
-    }
-
-    public SanPhamDTO() {
+        this.img = img;
     }
 
     public int getMa_SP() {
@@ -73,5 +76,13 @@ public class SanPhamDTO {
 
     public void setSo_luong(int so_luong) {
         this.so_luong = so_luong;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }
